@@ -332,7 +332,7 @@ APP.pages.home = sec => {
   Object.values(cur).forEach(v => lvCount[lvl(v).k]++);
   const b = TOM.best, bst = STN[b.j];
   const steps = [
-    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '8'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
+    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '10'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
     ['02', '진단', 'diagnosis', '22종 지정악취물질 분석값의 구성비(냄새 지문)로 배출원 업종을 판독하고 기여율·기준 초과를 판정합니다.', h('span', null, '미지 시료 판독 정확도 ', h('b', null, pct(D.clf.te_acc, 0)))],
     ['03', '해결', 'treatment', '원인 물질의 성질에 맞춰 세정·마이크로버블·바이오필터·RTO 등 방지시설 조합과 개략 규모를 처방합니다.', h('span', null, '처방 규칙 ', h('b', null, '7'), '개 물질군')],
     ['04', '예측', 'forecast', '과거 1년의 유사 기상 사례로 측정소별 악취를 시간 단위로 예보합니다.', h('span', null, '24시간 내 최고 ', h('b', null, f1(b.v)), `배 · ${bst.code} ${new Date(TOM.rows[b.i].ms).getUTCHours()}시`)],

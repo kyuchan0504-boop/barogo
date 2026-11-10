@@ -628,7 +628,7 @@ APP.pages.home = sec => {
   Object.values(cur).forEach(v => lvCount[lvl(v).k]++);
   const b = TOM.best, bst = STN[b.j];
   const steps = [
-    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '8'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
+    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '10'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
     ['02', '진단', 'diagnosis', '22종 지정악취물질 분석값의 구성비(냄새 지문)로 배출원 업종을 판독하고 기여율·기준 초과를 판정합니다.', h('span', null, '미지 시료 판독 정확도 ', h('b', null, pct(D.clf.te_acc, 0)))],
     ['03', '해결', 'treatment', '원인 물질의 성질에 맞춰 세정·마이크로버블·바이오필터·RTO 등 방지시설 조합과 개략 규모를 처방합니다.', h('span', null, '처방 규칙 ', h('b', null, '7'), '개 물질군')],
     ['04', '예측', 'forecast', '과거 1년의 유사 기상 사례로 측정소별 악취를 시간 단위로 예보합니다.', h('span', null, '24시간 내 최고 ', h('b', null, f1(b.v)), `배 · ${bst.code} ${new Date(TOM.rows[b.i].ms).getUTCHours()}시`)],
@@ -667,24 +667,30 @@ const TESTS = {
   F: '지방산 4종: 알칼리 흡수-GC',
   AL: '알데하이드 5종: DNPH 유도체화-HPLC',
   V: 'VOC(톨루엔·자일렌·스타이렌 등): 흡착관 열탈착-GC/MS',
+  X: '지정악취물질 외 성분: 흡착관 열탈착-GC/MS 전성분 스크리닝',
 };
 const ODOR_TYPES = [
   { id: 'sulfur', nm: '황화합물형', ex: '썩은 달걀·하수구 냄새', kw: ['썩은 달걀', '썩은 계란', '달걀', '계란', '하수구', '하수', '시궁창', '배수구', '정화조', '양파', '양배추', '유황', '방귀', '썩는', '썩은', '가스'], cmp: ['H2S', 'MM', 'DMS', 'DMDS'], cls: { sewage: 1, wastewater: 0.9, livestock: 0.5, foodwaste: 0.5 }, tests: ['S'] },
   { id: 'amine', nm: '아민형', ex: '비린내·생선 썩는 냄새', kw: ['비린', '비릿', '생선', '젓갈', '어분', '멸치', '오징어', '해산물'], cmp: ['TMA', 'NH3'], cls: { feed: 1, foodwaste: 0.8, livestock: 0.4, wastewater: 0.4 }, tests: ['A', 'N'] },
   { id: 'manure', nm: '분뇨·암모니아형', ex: '축사·분뇨·지린내', kw: ['분뇨', '똥', '오줌', '소변', '축사', '돼지', '돈사', '양돈', '거름', '퇴비', '두엄', '지린', '찌린', '암모니아', '가축'], cmp: ['NH3', 'H2S', 'MM', 'NBA'], cls: { livestock: 1, foodwaste: 0.5, sewage: 0.5 }, tests: ['N', 'S', 'F'] },
-  { id: 'fatty', nm: '지방산형', ex: '쉰내·땀·발 냄새', kw: ['쉰내', '쉰', '땀', '발냄새', '발 냄새', '토사물', '구토', '치즈', '꼬릿', '쿰쿰', '상한', '시큼', '시큼한'], cmp: ['NBA', 'NVAL', 'IVAL', 'PRA'], cls: { livestock: 0.9, feed: 0.8, foodwaste: 0.9 }, tests: ['F'] },
-  { id: 'aldehyde', nm: '알데하이드형', ex: '탄내·곡물 볶는 냄새', kw: ['탄내', '타는', '탄 ', '굽는', '볶는', '누룽지', '고소', '사료', '곡물', '매캐', '자극', '따가', '눈이 맵', '콧속'], cmp: ['ACA', 'PA', 'BA', 'IVA', 'NVA'], cls: { feed: 1, foodwaste: 0.6, wastewater: 0.4, petrochem: 0.3 }, tests: ['AL'] },
-  { id: 'solvent', nm: '유기용제형', ex: '페인트·시너 냄새', kw: ['페인트', '시너', '신나', '본드', '접착', '매니큐어', '휘발유', '기름', '석유', '락카', '도장', '인쇄', '잉크', '아세톤', '용제'], cmp: ['TOL', 'XYL', 'MEK', 'MIBK', 'BAC'], cls: { coating: 1, petrochem: 0.7, wastewater: 0.3 }, tests: ['V'] },
+  { id: 'fatty', nm: '지방산형', ex: '쉰내·땀·발 냄새', kw: ['쉰내', '^쉰', '땀', '발냄새', '발 냄새', '토사물', '구토', '치즈', '꼬릿', '쿰쿰', '^상한', '시큼', '시큼한'], cmp: ['NBA', 'NVAL', 'IVAL', 'PRA'], cls: { livestock: 0.9, feed: 0.8, foodwaste: 0.9 }, tests: ['F'] },
+  { id: 'aldehyde', nm: '알데하이드형', ex: '탄내·곡물 볶는 냄새', kw: ['탄내', '타는', '^탄 ', '굽는', '볶는', '누룽지', '고소', '사료', '곡물', '매캐', '자극', '따가', '눈이 맵', '콧속'], cmp: ['ACA', 'PA', 'BA', 'IVA', 'NVA'], cls: { feed: 1, foodwaste: 0.6, wastewater: 0.4, petrochem: 0.3 }, tests: ['AL'] },
+  { id: 'solvent', nm: '유기용제형', ex: '페인트·시너 냄새', kw: ['페인트', '시너', '신나', '본드', '접착', '매니큐어', '휘발유', '기름', '석유', '락카', '도장', '인쇄', '잉크', '아세톤', '용제', '바나나', '향수', '달달', '달콤'], cmp: ['TOL', 'XYL', 'MEK', 'MIBK', 'BAC'], cls: { coating: 1, petrochem: 0.7, wastewater: 0.3 }, tests: ['V'] },
   { id: 'chem', nm: '화학·플라스틱형', ex: '플라스틱·고무 타는 냄새', kw: ['플라스틱', '고무', '화학', '약품', '도시가스', '스티로폼', '타이어', '비닐', '공장', '달큰'], cmp: ['STY', 'ACA', 'TOL', 'XYL'], cls: { petrochem: 1, coating: 0.5 }, tests: ['V', 'AL'] },
+  { id: 'chlorine', nm: '염소·소독약형', ex: '소독약·락스 냄새', kw: ['소독약', '소독', '락스', '염소', '수영장', '표백'], cmp: [], cls: { sewage: 0.7, wastewater: 0.7, foodwaste: 0.3 }, tests: ['X'], note: '지정악취물질 22종 밖의 물질일 가능성이 커요. 산화 세정탑에 차아염소산을 너무 많이 넣었을 때도 이런 냄새가 날 수 있어요.' },
+  { id: 'musty', nm: '곰팡이·흙냄새형', ex: '곰팡이·퀴퀴한 냄새', kw: ['곰팡이', '곰팡', '퀴퀴', '흙냄새', '흙 냄새', '눅눅', '지하실', '꿉꿉'], cmp: ['DMDS', 'DMS'], cls: { sewage: 0.7, wastewater: 0.6, foodwaste: 0.4, livestock: 0.3 }, tests: ['S', 'X'], note: '곰팡이 냄새의 주성분(지오스민 등)은 지정악취물질 밖이라, 전성분 분석을 함께 해야 해요.' },
   { id: 'ferment', nm: '발효·음식물형', ex: '음식물 쓰레기·술 냄새', kw: ['음식물', '음식 쓰레기', '쓰레기', '발효', '술 냄새', '막걸리', '식초', '김치', '시큼', '쉰내'], cmp: ['ACA', 'IBA', 'PRA', 'TMA', 'MM'], cls: { foodwaste: 1, feed: 0.5, sewage: 0.3 }, tests: ['AL', 'A', 'F'] },
 ];
+const STOP_EX = /냄새/g;
 function bigrams(t) { const s = t.replace(/\s+/g, ''); const m = new Map(); for (let i = 0; i < s.length - 1; i++) { const g = s.slice(i, i + 2); m.set(g, (m.get(g) || 0) + 1); } return m; }
 function bgCos(a, b) { let s = 0, na = 0, nb = 0; a.forEach((v, k) => { na += v * v; if (b.has(k)) s += v * b.get(k); }); b.forEach(v => nb += v * v); return s / Math.sqrt(na * nb + 1e-9); }
-ODOR_TYPES.forEach(t => t.bg = bigrams(t.kw.join(' ') + ' ' + t.ex));
+ODOR_TYPES.forEach(t => t.bg = bigrams((t.kw.join(' ') + ' ' + t.ex).replace(/\^/g, '').replace(STOP_EX, ' ')));
+const STOP = /냄새가?|냄새를|나요|나는|납니다|났어요|같은|같아요|비슷한?|심해요|심하게|자꾸|계속|너무|그냥|이상한|좀|많이|느껴져요|들어와요|어디선가/g;
+const kwHit = (s, k) => k.startsWith('^') ? new RegExp('(^|\\s)' + k.slice(1).trim()).test(s) : s.includes(k.trim());
 function analyzeText(txt) {
-  const s = txt.toLowerCase(), tbg = bigrams(s);
+  const s = ' ' + txt.toLowerCase() + ' ', tbg = bigrams(s.replace(STOP, ' '));
   const res = ODOR_TYPES.map(t => {
-    const hits = t.kw.filter(k => s.includes(k.trim()));
+    const hits = t.kw.filter(k => kwHit(s, k)).map(k => k.replace('^', '').trim());
     const kwScore = sum(hits.map(k => 1 + 0.25 * (k.trim().length - 1)));
     return { t, hits, score: kwScore + 1.2 * bgCos(tbg, t.bg) };
   });
@@ -702,57 +708,65 @@ APP.pages.intake = sec => {
   const out = h('div', { class: 'stack' }), outB = h('div');
   const run = () => renderIntake(out, outB, ta.value, area.value, when.value);
   sec.append(
-    pageHead('01 접수 · 문진', '어떤 냄새인지 말로 설명해 주세요', '주민 민원이나 고객 상담 내용을 그대로 입력하면, 냄새 표현을 8가지 냄새 유형과 비교해 의심 물질과 필요한 검사를 안내합니다. 사는 곳과 현재 바람을 함께 보고 냄새가 올 수 있는 사업장도 추려 줍니다.'),
+    pageHead('01 접수 · 문진', '어떤 냄새인지 말로 설명해 주세요', '주민 민원이나 고객 상담 내용을 그대로 입력하면, 냄새 표현을 10가지 냄새 유형과 비교해 의심 물질과 필요한 검사를 안내합니다. 사는 곳과 현재 바람을 함께 보고 냄새가 올 수 있는 사업장도 추려 줍니다.'),
     h('div', { class: 'split' },
       h('div', { class: 'card stack' },
         h('h3', null, '문진표'),
         h('label', { class: 'fl', for: 'in-text' }, '냄새 설명', ta),
         h('div', { class: 'row' }, examples.slice(1).map(x => h('button', { class: 'chip', type: 'button', onclick: () => { ta.value = x; run(); } }, x.length > 14 ? x.slice(0, 14) + '…' : x))),
         h('div', { class: 'grid2', style: 'gap:10px' }, h('label', { class: 'fl', for: 'in-area' }, '냄새를 맡은 곳', area), h('label', { class: 'fl', for: 'in-when' }, '주로 나는 때', when)),
-        h('div', null, h('button', { class: 'btn pri', type: 'button', onclick: run }, '문진 분석')),
-        h('p', { class: 'small faint' }, '분석 방식: 입력 문장에서 냄새 표현 키워드를 찾고, 글자 단위(2글자) 유사도를 함께 계산해 냄새 유형별 점수를 매깁니다. 의심 사업장은 냄새 유형과 업종의 연관성, 지금 바람이 불어오는 방향, 거리를 곱해 순위를 냅니다.')),
+        h('div', null, h('button', { class: 'btn pri', id: 'in-run', type: 'button', onclick: run }, '문진 분석')),
+        h('p', { class: 'small faint' }, '분석 방식: 입력 문장에서 냄새 표현(10가지 유형, 약 120개 단어)을 찾고 글자 단위 유사도로 점수를 매깁니다. 등록된 표현이 하나도 없으면 유형을 억지로 고르지 않고 전체 검사를 안내합니다. 의심 사업장은 냄새 유형과 업종의 연관성, 지금 바람이 불어오는 방향, 거리를 곱해 순위를 냅니다.')),
       out), outB);
   run();
 };
 function renderIntake(out, outB, txt, areaCode, when) {
   out.innerHTML = ''; outB.innerHTML = '';
-  const res = analyzeText(txt), top = res.filter(r => r.p > 0.08).slice(0, 3);
-  if (!res[0] || res[0].score < 0.15) {
-    out.append(h('div', { class: 'card' }, h('h3', null, '냄새 표현을 찾지 못했어요'), h('p', { class: 'muted', style: 'margin-top:8px' }, '“썩은 달걀”, “비린내”, “시너 냄새”처럼 무엇과 비슷한 냄새인지 적어 주세요.')));
-    return;
-  }
+  const res = analyzeText(txt);
+  const known = res.some(r => r.hits.length > 0);
+  const top = known ? res.filter(r => r.hits.length > 0 && r.p > 0.08).slice(0, 3) : [];
   const st = STN[STI[areaCode]], wd = MON.wd[nowIdx], ws = MON.ws[nowIdx], curOu = MON.st[areaCode].ou[nowIdx];
   const cmpW = {}; top.forEach(r => r.t.cmp.forEach((c, k) => cmpW[c] = (cmpW[c] || 0) + r.p * (1 - k * 0.12)));
   const cmps = Object.entries(cmpW).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([c]) => CMP[CI[c]]);
-  const tests = [...new Set(top.flatMap(r => r.t.tests))].map(k => TESTS[k]);
+  const outside = !known || top.some(r => r.t.tests.includes('X'));
+  const tests = known ? [...new Set(top.flatMap(r => r.t.tests))].map(k => TESTS[k]) : ['S', 'A', 'N', 'F', 'AL', 'V', 'X'].map(k => TESTS[k]);
   const cand = SITES.map(s => {
-    const compat = sum(top.map(r => r.p * (r.t.cls[s.cls] || 0)));
+    const compat = known ? sum(top.map(r => r.p * (r.t.cls[s.cls] || 0))) : 1;
     const dx = s.x - st.x, dy = s.y - st.y, rr = Math.hypot(dx, dy), brg = (Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360;
     const dl = angdiff(brg, wd), align = Math.exp(-dl * dl / (2 * 40 * 40));
     return { s, compat, align, rr, dl, score: compat * (0.25 + 0.75 * align) / Math.pow(rr, 0.6) };
   }).sort((a, b) => b.score - a.score);
   const cs = sum(cand.map(c => c.score)) || 1;
+  const weather = when === '새벽' || when === '밤' ? '밤·새벽에는 바람이 약하고 대기가 안정돼 냄새가 잘 흩어지지 않습니다.' : '낮에는 바다에서 부는 바람(해풍)이 공단 냄새를 내륙으로 옮기는 경우가 많습니다.';
+  const typeCard = known
+    ? h('div', { class: 'card stack' },
+      h('div', { class: 'card-h' }, h('h3', null, '냄새 유형 분석'), h('span', { class: 'small faint' }, '찾은 표현: ' + [...new Set(top.flatMap(r => r.hits))].join(', '))),
+      barList(res.filter(r => r.hits.length).slice(0, 5).map((r, i) => ({ label: r.t.nm, value: r.p, display: pct(r.p), top: i === 0, tip: `${r.t.nm}: ${esc(r.t.ex)}` })), { max: 1 }),
+      h('div', { class: 'answer' }, h('b', null, `${top[0].t.nm}(${top[0].t.ex}) 가능성이 가장 높습니다.`), ' ', top[0].t.note || weather))
+    : h('div', { class: 'card stack' },
+      h('h3', null, '등록되지 않은 냄새 표현이에요'),
+      h('div', { class: 'answer' }, h('b', null, '이 설명만으로는 냄새 유형을 정하지 않았습니다.'), ' 억지로 비슷한 유형에 끼워 맞추면 엉뚱한 검사를 하게 되므로, 특정 물질을 짐작하지 않고 전체 검사로 원인을 찾도록 안내합니다.'),
+      h('p', { class: 'small muted' }, '무엇과 비슷한 냄새인지 덧붙이면 더 정확해집니다. 예:'),
+      h('div', { class: 'row' }, ['썩은 달걀', '비린내', '페인트·시너', '땀·쉰내', '소독약', '곰팡이', '탄내', '축사·분뇨'].map(x => h('button', { class: 'chip', type: 'button', onclick: () => { const ta = $('#in-text'); ta.value = (ta.value.trim() + ' ' + x + ' 냄새').trim(); ta.dispatchEvent(new Event('change')); $('#in-run').click(); } }, x))));
   out.append(
-    h('div', { class: 'card stack' },
-      h('div', { class: 'card-h' }, h('h3', null, '냄새 유형 분석'), h('span', { class: 'small faint' }, '찾은 표현: ' + ([...new Set(top.flatMap(r => r.hits))].join(', ') || '유사 표현'))),
-      barList(res.slice(0, 5).map((r, i) => ({ label: r.t.nm, value: r.p, display: pct(r.p), top: i === 0, tip: `${r.t.nm}: ${esc(r.t.ex)}` })), { max: 1 }),
-      h('div', { class: 'answer' }, h('b', null, `${top[0].t.nm}(${top[0].t.ex}) 가능성이 가장 높습니다.`), ' ', when === '새벽' || when === '밤' ? '밤·새벽에는 바람이 약하고 대기가 안정돼 냄새가 잘 흩어지지 않습니다.' : '낮에는 바다에서 부는 바람(해풍)이 공단 냄새를 내륙으로 옮기는 경우가 많습니다.')),
+    typeCard,
     h('div', { class: 'grid2' },
       h('div', { class: 'card stack' }, h('h3', null, '의심 물질'),
         h('div', { class: 'tbl-wrap' }, h('table', { class: 'wrap' }, h('thead', null, h('tr', null, h('th', null, '물질'), h('th', null, '냄새 특성'), h('th', { class: 'r' }, '최소감지(ppm)'))),
-          h('tbody', null, cmps.map(c => h('tr', null, h('td', null, c.kr), h('td', null, c.desc), h('td', { class: 'r mono' }, String(c.thr)))))))),
+          h('tbody', null, cmps.map(c => h('tr', null, h('td', null, c.kr), h('td', null, c.desc), h('td', { class: 'r mono' }, String(c.thr)))),
+            outside ? h('tr', null, h('td', { colspan: 3 }, known ? '+ 지정악취물질 22종 밖의 물질 가능성' : '특정하지 않음 — 22종 전체와 그 밖의 성분까지 분석')) : null)))),
       h('div', { class: 'card stack' }, h('h3', null, '추천 검사'),
         h('ul', { style: 'margin:0;padding-left:18px;display:grid;gap:4px' }, h('li', null, '복합악취: 공기희석관능법(부지경계선·민원 지점)'), tests.map(t => h('li', null, t))),
         h('p', { class: 'small muted' }, '현장 포집 후 진단센터에서 지정악취물질 22종 분석값으로 냄새 지문을 판독합니다.'))));
   outB.append(
     h('div', { class: 'card stack' },
-      h('div', { class: 'card-h' }, h('h3', null, '지금 바람 기준 의심 사업장'), h('span', { class: 'small faint mono' }, `${tf(NOW, 'full')} · ${dirName(wd)}풍 ${f1(ws)} m/s · ${st.code} 현재 ${f1(curOu)}배`)),
+      h('div', { class: 'card-h' }, h('h3', null, known ? '지금 바람 기준 의심 사업장' : '바람 방향·거리만으로 본 후보 사업장'), h('span', { class: 'small faint mono' }, `${tf(NOW, 'full')} · ${dirName(wd)}풍 ${f1(ws)} m/s · ${st.code} 현재 ${f1(curOu)}배`)),
       h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,7fr) minmax(0,5fr)' },
         drawMap({ vals: { [areaCode]: curOu }, wind: { wd, ws }, hl: cand.slice(0, 2).map(c => c.s.code), ray: { st: areaCode, wd }, sel: areaCode }),
         h('div', { class: 'stack' },
           barList(cand.slice(0, 5).map((c, i) => ({ label: c.s.name, value: c.score / cs, display: pct(c.score / cs), top: i === 0,
             tip: `${esc(c.s.name)}<br>냄새 유형 연관 ${pct(c.compat)} · 바람 방향과 ${Math.abs(Math.round(c.dl))}° 차이 · ${c.rr.toFixed(1)} km` }))),
-          h('p', { class: 'small muted' }, `노란 부채꼴은 ${st.name}에서 바람이 불어오는 쪽입니다. 냄새 유형과 업종이 맞고 바람 위쪽에 가까이 있을수록 순위가 올라갑니다.`),
+          h('p', { class: 'small muted' }, `노란 부채꼴은 ${st.name}에서 바람이 불어오는 쪽입니다. ${known ? '냄새 유형과 업종이 맞고 ' : ''}바람 위쪽에 가까이 있을수록 순위가 올라갑니다.`),
           h('div', { class: 'row' },
             h('button', { class: 'btn pri', type: 'button', onclick: () => { const r = [...REC].reverse().find(x => x.s === cand[0].s.code && x.p === '부지경계선'); APP.diagLoad = r ? r.id : null; nav('diagnosis'); } }, `${cand[0].s.name[0]} 사업장 최근 시료 진단하기`),
             h('button', { class: 'btn', type: 'button', onclick: () => { APP.monSel = areaCode; nav('monitoring'); } }, `${st.code} 실시간 보기`)))))
