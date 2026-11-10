@@ -186,7 +186,7 @@ function drawMap(opt = {}) {
   const svg = sv('svg', { class: 'map', viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': '가상 산업단지 개략도: 사업장과 측정소 위치' });
   const coast = [[10.5, 9], [10.05, 7.6], [10.35, 6.1], [9.95, 4.6], [10.3, 3], [9.9, 1.4], [10.25, 0], [MAPW, 0], [MAPW, 9]];
   svg.append(sv('polygon', { class: 'sea', points: coast.map(p => `${MX(p[0])},${MY(p[1])}`).join(' ') }));
-  svg.append(sv('text', { x: MX(10.75), y: MY(4.5), 'text-anchor': 'middle', transform: `rotate(90 ${MX(10.75)} ${MY(4.5)})` }, '바다'));
+  svg.append(sv('text', { x: MX(10.8), y: MY(4.4), 'text-anchor': 'middle', fill: 'var(--data)', 'font-weight': 600 }, '바다'));
   svg.append(sv('rect', { class: 'ind', x: MX(5.9), y: MY(6.3), width: 3.75 * SC, height: 4.9 * SC, rx: 14 }));
   svg.append(sv('text', { x: MX(6.05), y: MY(6.05), 'font-weight': 600 }, '가상 산업단지'));
   [['M1', 1.0], ['M2', 0.85], ['M5', 0.8], ['M6', 0.85]].forEach(([c, r]) => { const s = STN[STI[c]]; svg.append(sv('circle', { class: 'res', cx: MX(s.x), cy: MY(s.y), r: r * SC })); });
@@ -212,7 +212,7 @@ function drawMap(opt = {}) {
       onmousemove: e => showTip(e, `<b>${st.code} ${esc(st.name)}</b>${v != null ? `<br>복합악취 <b>${f1(v)}</b>배 · ${L.t}` : ''}`), onmouseleave: hideTip });
     if (opt.sel === st.code) g.append(sv('circle', { r: 20, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2 }));
     g.append(sv('circle', { class: 'o', r: 14, fill: L ? LVC[L.k] : 'var(--ink-3)' }));
-    g.append(sv('text', { x: 0, y: 4.5, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: L && L.k === 'critical' ? '#fff' : 'var(--ink)' }, st.code));
+    g.append(sv('text', { x: 0, y: 5, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 700, fill: L && L.k === 'critical' ? '#fff' : 'var(--ink)' }, st.code));
     const left = LBL_LEFT.has(st.code), lx = left ? -20 : 20, an = left ? 'end' : 'start';
     g.append(sv('text', { class: 'halo', x: lx, y: -3, 'text-anchor': an }, st.name));
     if (v != null) g.append(sv('text', { class: 'v halo', x: lx, y: 15, 'text-anchor': an }, `${f1(v)}배 ${L.t}`));
@@ -341,7 +341,7 @@ APP.pages.home = sec => {
   sec.append(
     h('div', { class: 'hero' },
       h('div', { class: 'page-head' },
-        h('div', { class: 'eyebrow' }, '종합안내'),
+        h('div', { class: 'eyebrow' }, '바르고 · 종합안내'),
         h('h1', null, '악취를 환자처럼 접수하고, 진단하고, 처방하고, 예보하고, 관리합니다'),
         h('p', { class: 'lead' }, '‘바르고’는 태성환경연구소가 내건 ‘악취종합병원’을 하나의 웹 플랫폼으로 구현해 본 제안 프로토타입입니다. 각 진료센터의 AI 기능은 이 페이지 안에서 바로 계산되며, 로그인이나 외부 서버 없이 동작합니다.')),
       h('div', { class: 'axes', 'aria-label': '통합솔루션 4축' }, ['진단', '해결', '예측', '관리'].map(t => h('span', null, t)))),
@@ -355,10 +355,9 @@ APP.pages.home = sec => {
       h('div', { class: 'card stack' },
         h('h3', null, '측정소별 현재 값'),
         h('div', { class: 'tbl-wrap' }, h('table', null,
-          h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '복합악취(배)'), h('th', null, '단계'), h('th', null, '최근 48시간'))),
+          h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '복합악취(배)'), h('th', null, '단계'))),
           h('tbody', null, STN.map(st => h('tr', { class: 'click', onclick: () => { APP.monSel = st.code; nav('monitoring'); } },
-            h('td', null, h('b', null, st.code), ' ', st.name), h('td', { class: 'r mono' }, f1(cur[st.code])), h('td', null, lvTag(cur[st.code])),
-            h('td', { style: 'width:130px' }, sparkline(MON.st[st.code].ou.slice(-48)))))))),
+            h('td', null, h('b', null, st.code), ' ', st.name), h('td', { class: 'r mono' }, f1(cur[st.code])), h('td', null, lvTag(cur[st.code]))))))),
         h('p', { class: 'small muted' }, '단계 구분: 정상 10배 미만 · 관심 10~15배 · 주의 15~30배 · 경보 30배 이상 (부지경계선 기타지역 기준 15배를 참고한 시연용 구분)'),
         h('div', { class: 'note' }, `AI 기능 요약 — 냄새 지문 판독: 최근 3개월 미지 시료 ${D.clf.n_te}건 중 ${pct(D.clf.te_acc, 0)} 정답 · 악취 예보: 시간대 평균 대비 평균오차 ${pct(1 - sum(FC.mae) / sum(FC.mae_base), 0)} 감소 · 민원 역추적: 1순위 후보 적중 ${pct(D.bt.top1, 0)}(무작위 13%) · `, h('a', { href: '#data' }, '검증 자세히 보기'))))
   );

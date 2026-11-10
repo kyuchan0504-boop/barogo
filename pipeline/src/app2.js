@@ -132,7 +132,7 @@ function renderDiagLeft(box, sel, redraw) {
       h('dt', { class: 'muted' }, '채취 시 기상'), h('dd', { style: 'margin:0' }, `${dirName(r.wd)}풍 ${r.ws} m/s · ${r.t}℃ · 습도 ${r.rh}%`),
       h('dt', { class: 'muted' }, '복합악취 실측'), h('dd', { style: 'margin:0' }, h('span', { class: 'mono' }, `${r.dil}배`), ' (공기희석관능법)')),
     h('div', { class: 'row', style: 'justify-content:space-between' }, h('h4', null, '지정악취물질 22종 (ppm) — 값을 고치면 즉시 다시 판독'), h('button', { class: 'btn sm', type: 'button', onclick: () => { DG.c = r.c.slice(); redraw(); } }, '원래 값')),
-    h('div', { class: 'tbl-wrap scroll' }, h('table', null,
+    h('div', { class: 'tbl-wrap scroll' }, h('table', { class: 'dense' },
       h('thead', null, h('tr', null, h('th', null, '물질'), h('th', { class: 'r' }, '농도'), h('th', { class: 'r' }, 'OAV'), h('th', { class: 'r' }, `기준(${DG.zone})`))),
       h('tbody', null, CMP.map((c, i) => {
         const v = DG.c[i], ex = r.p === '부지경계선' && v > limitOf(i, DG.zone);

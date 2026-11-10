@@ -2,10 +2,10 @@
 APP.pages.forecast = sec => {
   const T = TOM, b = T.best;
   const heat = h('div', { class: 'heat', role: 'table', 'aria-label': '앞으로 24시간 측정소별 악취 예보' },
-    h('div', { class: 'hr', role: 'row' }, h('span', { class: 'lbl faint' }, '측정소 \\ 시각'), T.rows.map(r => h('span', { class: 'mono faint', style: 'text-align:center;font-size:10px' }, new Date(r.ms).getUTCHours()))),
+    h('div', { class: 'hr', role: 'row' }, h('span', { class: 'lbl faint' }, '측정소 \\ 시각'), T.rows.map(r => h('span', { class: 'mono faint', style: 'text-align:center;font-size:12px' }, new Date(r.ms).getUTCHours()))),
     STN.map((st, j) => h('div', { class: 'hr', role: 'row' }, h('span', { class: 'lbl' }, h('b', null, st.code), ' ', st.name),
       T.rows.map(r => { const v = r.p[j], L = lvl(v); return h('span', { class: 'c ' + L.k, onmousemove: e => showTip(e, `${st.code} ${esc(st.name)} · ${tf(r.ms)}<br>예보 <b>${f1(v)}</b>배 (${L.t})<br>${dirName(r.wd)}풍 ${f1(r.ws)} m/s · ${f1(r.t)}℃`), onmouseleave: hideTip }, Math.round(v)); }))),
-    h('div', { class: 'hr', role: 'row' }, h('span', { class: 'lbl faint' }, '바람(가는 방향)'), T.rows.map(r => h('span', { style: 'text-align:center', title: `${dirName(r.wd)}풍 ${f1(r.ws)} m/s` }, h('span', { style: `display:inline-block;transform:rotate(${(r.wd + 180) % 360}deg);font-size:13px;color:var(--ink-2)` }, '↑')))));
+    h('div', { class: 'hr', role: 'row' }, h('span', { class: 'lbl faint' }, '바람(가는 방향)'), T.rows.map(r => h('span', { style: 'text-align:center', title: `${dirName(r.wd)}풍 ${f1(r.ws)} m/s` }, h('span', { style: `display:inline-block;transform:rotate(${(r.wd + 180) % 360}deg);font-size:16px;color:var(--ink-2)` }, '↑')))));
   // 가정 기상
   const W0 = { wd: MON.wd[nowIdx], ws: MON.ws[nowIdx], t: MON.t[nowIdx], hr: new Date(NOW).getUTCHours(), wk: pyWkOf(NOW) < 5 };
   const S = { ...W0 };
