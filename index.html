@@ -670,16 +670,16 @@ const TESTS = {
   X: '지정악취물질 외 성분: 흡착관 열탈착-GC/MS 전성분 스크리닝',
 };
 const ODOR_TYPES = [
-  { id: 'sulfur', nm: '황화합물형', ex: '썩은 달걀·하수구 냄새', kw: ['썩은 달걀', '썩은 계란', '달걀', '계란', '하수구', '하수', '시궁창', '배수구', '정화조', '양파', '양배추', '유황', '방귀', '썩는', '썩은', '가스'], cmp: ['H2S', 'MM', 'DMS', 'DMDS'], cls: { sewage: 1, wastewater: 0.9, livestock: 0.5, foodwaste: 0.5 }, tests: ['S'] },
-  { id: 'amine', nm: '아민형', ex: '비린내·생선 썩는 냄새', kw: ['비린', '비릿', '생선', '젓갈', '어분', '멸치', '오징어', '해산물'], cmp: ['TMA', 'NH3'], cls: { feed: 1, foodwaste: 0.8, livestock: 0.4, wastewater: 0.4 }, tests: ['A', 'N'] },
-  { id: 'manure', nm: '분뇨·암모니아형', ex: '축사·분뇨·지린내', kw: ['분뇨', '똥', '오줌', '소변', '축사', '돼지', '돈사', '양돈', '거름', '퇴비', '두엄', '지린', '찌린', '암모니아', '가축'], cmp: ['NH3', 'H2S', 'MM', 'NBA'], cls: { livestock: 1, foodwaste: 0.5, sewage: 0.5 }, tests: ['N', 'S', 'F'] },
-  { id: 'fatty', nm: '지방산형', ex: '쉰내·땀·발 냄새', kw: ['쉰내', '^쉰', '땀', '발냄새', '발 냄새', '토사물', '구토', '치즈', '꼬릿', '쿰쿰', '^상한', '시큼', '시큼한'], cmp: ['NBA', 'NVAL', 'IVAL', 'PRA'], cls: { livestock: 0.9, feed: 0.8, foodwaste: 0.9 }, tests: ['F'] },
-  { id: 'aldehyde', nm: '알데하이드형', ex: '탄내·곡물 볶는 냄새', kw: ['탄내', '타는', '^탄 ', '굽는', '볶는', '누룽지', '고소', '사료', '곡물', '매캐', '자극', '따가', '눈이 맵', '콧속'], cmp: ['ACA', 'PA', 'BA', 'IVA', 'NVA'], cls: { feed: 1, foodwaste: 0.6, wastewater: 0.4, petrochem: 0.3 }, tests: ['AL'] },
-  { id: 'solvent', nm: '유기용제형', ex: '페인트·시너 냄새', kw: ['페인트', '시너', '신나', '본드', '접착', '매니큐어', '휘발유', '기름', '석유', '락카', '도장', '인쇄', '잉크', '아세톤', '용제', '바나나', '향수', '달달', '달콤'], cmp: ['TOL', 'XYL', 'MEK', 'MIBK', 'BAC'], cls: { coating: 1, petrochem: 0.7, wastewater: 0.3 }, tests: ['V'] },
-  { id: 'chem', nm: '화학·플라스틱형', ex: '플라스틱·고무 타는 냄새', kw: ['플라스틱', '고무', '화학', '약품', '도시가스', '스티로폼', '타이어', '비닐', '공장', '달큰'], cmp: ['STY', 'ACA', 'TOL', 'XYL'], cls: { petrochem: 1, coating: 0.5 }, tests: ['V', 'AL'] },
-  { id: 'chlorine', nm: '염소·소독약형', ex: '소독약·락스 냄새', kw: ['소독약', '소독', '락스', '염소', '수영장', '표백'], cmp: [], cls: { sewage: 0.7, wastewater: 0.7, foodwaste: 0.3 }, tests: ['X'], note: '지정악취물질 22종 밖의 물질일 가능성이 커요. 산화 세정탑에 차아염소산을 너무 많이 넣었을 때도 이런 냄새가 날 수 있어요.' },
-  { id: 'musty', nm: '곰팡이·흙냄새형', ex: '곰팡이·퀴퀴한 냄새', kw: ['곰팡이', '곰팡', '퀴퀴', '흙냄새', '흙 냄새', '눅눅', '지하실', '꿉꿉'], cmp: ['DMDS', 'DMS'], cls: { sewage: 0.7, wastewater: 0.6, foodwaste: 0.4, livestock: 0.3 }, tests: ['S', 'X'], note: '곰팡이 냄새의 주성분(지오스민 등)은 지정악취물질 밖이라, 전성분 분석을 함께 해야 해요.' },
-  { id: 'ferment', nm: '발효·음식물형', ex: '음식물 쓰레기·술 냄새', kw: ['음식물', '음식 쓰레기', '쓰레기', '발효', '술 냄새', '막걸리', '식초', '김치', '시큼', '쉰내'], cmp: ['ACA', 'IBA', 'PRA', 'TMA', 'MM'], cls: { foodwaste: 1, feed: 0.5, sewage: 0.3 }, tests: ['AL', 'A', 'F'] },
+  { id: 'sulfur', chip: '썩은 달걀·하수구', sample: '밤마다 썩은 달걀 같은 냄새가 창문으로 들어와요', nm: '황화합물형', ex: '썩은 달걀·하수구 냄새', kw: ['썩은 달걀', '썩은 계란', '달걀', '계란', '하수구', '하수', '시궁창', '배수구', '정화조', '양파', '양배추', '유황', '방귀', '썩는', '썩은', '가스'], cmp: ['H2S', 'MM', 'DMS', 'DMDS'], cls: { sewage: 1, wastewater: 0.9, livestock: 0.5, foodwaste: 0.5 }, tests: ['S'] },
+  { id: 'amine', chip: '비린내·생선', sample: '비릿한 생선 썩는 냄새가 나요', nm: '아민형', ex: '비린내·생선 썩는 냄새', kw: ['비린', '비릿', '생선', '젓갈', '어분', '멸치', '오징어', '해산물'], cmp: ['TMA', 'NH3'], cls: { feed: 1, foodwaste: 0.8, livestock: 0.4, wastewater: 0.4 }, tests: ['A', 'N'] },
+  { id: 'manure', chip: '축사·분뇨', sample: '돼지 축사 같은 분뇨 냄새가 심해요', nm: '분뇨·암모니아형', ex: '축사·분뇨·지린내', kw: ['분뇨', '똥', '오줌', '소변', '축사', '돼지', '돈사', '양돈', '거름', '퇴비', '두엄', '지린', '찌린', '암모니아', '가축'], cmp: ['NH3', 'H2S', 'MM', 'NBA'], cls: { livestock: 1, foodwaste: 0.5, sewage: 0.5 }, tests: ['N', 'S', 'F'] },
+  { id: 'fatty', chip: '쉰내·땀', sample: '시큼한 땀 냄새, 쉰내가 나요', nm: '지방산형', ex: '쉰내·땀·발 냄새', kw: ['쉰내', '^쉰', '땀', '발냄새', '발 냄새', '토사물', '구토', '치즈', '꼬릿', '쿰쿰', '^상한', '시큼', '시큼한'], cmp: ['NBA', 'NVAL', 'IVAL', 'PRA'], cls: { livestock: 0.9, feed: 0.8, foodwaste: 0.9 }, tests: ['F'] },
+  { id: 'aldehyde', chip: '탄내·곡물', sample: '곡물 볶는 듯한 탄내가 나요', nm: '알데하이드형', ex: '탄내·곡물 볶는 냄새', kw: ['탄내', '타는', '^탄 ', '굽는', '볶는', '누룽지', '고소', '사료', '곡물', '매캐', '자극', '따가', '눈이 맵', '콧속'], cmp: ['ACA', 'PA', 'BA', 'IVA', 'NVA'], cls: { feed: 1, foodwaste: 0.6, wastewater: 0.4, petrochem: 0.3 }, tests: ['AL'] },
+  { id: 'solvent', chip: '페인트·시너', sample: '낮에 페인트 시너 냄새가 심해요', nm: '유기용제형', ex: '페인트·시너 냄새', kw: ['페인트', '시너', '신나', '본드', '접착', '매니큐어', '휘발유', '기름', '석유', '락카', '도장', '인쇄', '잉크', '아세톤', '용제', '바나나', '향수', '달달', '달콤'], cmp: ['TOL', 'XYL', 'MEK', 'MIBK', 'BAC'], cls: { coating: 1, petrochem: 0.7, wastewater: 0.3 }, tests: ['V'] },
+  { id: 'chem', chip: '플라스틱·고무', sample: '플라스틱 타는 듯한 화학 냄새가 나요', nm: '화학·플라스틱형', ex: '플라스틱·고무 타는 냄새', kw: ['플라스틱', '고무', '화학', '약품', '도시가스', '스티로폼', '타이어', '비닐', '공장', '달큰'], cmp: ['STY', 'ACA', 'TOL', 'XYL'], cls: { petrochem: 1, coating: 0.5 }, tests: ['V', 'AL'] },
+  { id: 'chlorine', chip: '소독약·락스', sample: '소독약이나 락스 같은 냄새가 나요', nm: '염소·소독약형', ex: '소독약·락스 냄새', kw: ['소독약', '소독', '락스', '염소', '수영장', '표백'], cmp: [], cls: { sewage: 0.7, wastewater: 0.7, foodwaste: 0.3 }, tests: ['X'], note: '지정악취물질 22종 밖의 물질일 가능성이 커요. 산화 세정탑에 차아염소산을 너무 많이 넣었을 때도 이런 냄새가 날 수 있어요.' },
+  { id: 'musty', chip: '곰팡이·퀴퀴', sample: '곰팡이 핀 것처럼 퀴퀴한 냄새가 나요', nm: '곰팡이·흙냄새형', ex: '곰팡이·퀴퀴한 냄새', kw: ['곰팡이', '곰팡', '퀴퀴', '흙냄새', '흙 냄새', '눅눅', '지하실', '꿉꿉'], cmp: ['DMDS', 'DMS'], cls: { sewage: 0.7, wastewater: 0.6, foodwaste: 0.4, livestock: 0.3 }, tests: ['S', 'X'], note: '곰팡이 냄새의 주성분(지오스민 등)은 지정악취물질 밖이라, 전성분 분석을 함께 해야 해요.' },
+  { id: 'ferment', chip: '음식물 쓰레기', sample: '음식물 쓰레기 썩는 냄새가 나요', nm: '발효·음식물형', ex: '음식물 쓰레기·술 냄새', kw: ['음식물', '음식 쓰레기', '쓰레기', '발효', '술 냄새', '막걸리', '식초', '김치', '시큼', '쉰내'], cmp: ['ACA', 'IBA', 'PRA', 'TMA', 'MM'], cls: { foodwaste: 1, feed: 0.5, sewage: 0.3 }, tests: ['AL', 'A', 'F'] },
 ];
 const STOP_EX = /냄새/g;
 function bigrams(t) { const s = t.replace(/\s+/g, ''); const m = new Map(); for (let i = 0; i < s.length - 1; i++) { const g = s.slice(i, i + 2); m.set(g, (m.get(g) || 0) + 1); } return m; }
@@ -699,8 +699,7 @@ function analyzeText(txt) {
   return res.sort((a, b) => b.score - a.score);
 }
 APP.pages.intake = sec => {
-  const examples = ['밤마다 썩은 달걀 같은 냄새가 창문으로 들어와요', '비릿한 생선 썩는 냄새가 나요', '시큼한 땀 냄새랑 축사 냄새가 섞여요', '낮에 페인트 시너 냄새가 심해요', '플라스틱 타는 듯한 화학 냄새'];
-  const ta = h('textarea', { id: 'in-text', 'aria-label': '냄새 설명' }, examples[0]);
+  const ta = h('textarea', { id: 'in-text', 'aria-label': '냄새 설명' }, ODOR_TYPES[0].sample);
   const area = h('select', { id: 'in-area' }, STN.filter(s => s.kind === '주거지').map(s => h('option', { value: s.code }, `${s.name} (${s.code})`)));
   area.value = 'M5';
   const when = h('select', { id: 'in-when' }, ['새벽', '아침', '낮', '저녁', '밤'].map(w => h('option', null, w)));
@@ -713,7 +712,8 @@ APP.pages.intake = sec => {
       h('div', { class: 'card stack' },
         h('h3', null, '문진표'),
         h('label', { class: 'fl', for: 'in-text' }, '냄새 설명', ta),
-        h('div', { class: 'row' }, examples.slice(1).map(x => h('button', { class: 'chip', type: 'button', onclick: () => { ta.value = x; run(); } }, x.length > 14 ? x.slice(0, 14) + '…' : x))),
+        h('div', { class: 'stack', style: 'gap:8px' }, h('span', { class: 'small muted' }, `냄새 유형 ${ODOR_TYPES.length}가지 — 누르면 예시 문장이 들어가요`),
+          h('div', { class: 'row' }, ODOR_TYPES.map(t => h('button', { class: 'chip', type: 'button', title: t.sample, onclick: () => { ta.value = t.sample; run(); } }, t.chip)))),
         h('div', { class: 'grid2', style: 'gap:10px' }, h('label', { class: 'fl', for: 'in-area' }, '냄새를 맡은 곳', area), h('label', { class: 'fl', for: 'in-when' }, '주로 나는 때', when)),
         h('div', null, h('button', { class: 'btn pri', id: 'in-run', type: 'button', onclick: run }, '문진 분석')),
         h('p', { class: 'small faint' }, '분석 방식: 입력 문장에서 냄새 표현(10가지 유형, 약 120개 단어)을 찾고 글자 단위 유사도로 점수를 매깁니다. 등록된 표현이 하나도 없으면 유형을 억지로 고르지 않고 전체 검사를 안내합니다. 의심 사업장은 냄새 유형과 업종의 연관성, 지금 바람이 불어오는 방향, 거리를 곱해 순위를 냅니다.')),
