@@ -394,7 +394,3 @@ APP.pages.data = sec => {
           h('li', null, '측정소 값: 배출원 8곳 × 바람 방향·풍속·대기안정도에 따른 가우스형 확산 근사 + 공정 변동·돌발 이벤트')))));
 };
 
-/* ================= 시작 ================= */
-$('#nowTag').textContent = `기준 시각 ${tf(NOW, 'full')}`;
-window.addEventListener('hashchange', go);
-go();

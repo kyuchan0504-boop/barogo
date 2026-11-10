@@ -270,7 +270,7 @@ function renderTreat(box, redraw) {
       h('h4', null, '물질군별 냄새 비중'),
       barList(Object.entries(P.sh).sort((a, b) => b[1] - a[1]).filter(e => e[1] > 0.005).map(([g, v], i) => ({ label: GRP[g], value: v, display: pct(v), top: i === 0 })), { max: 1 })),
     h('div', { class: 'rx' },
-      h('div', { class: 'rx-h' }, h('span', { class: 't' }, '처 방 전'), h('span', { class: 'small mono muted' }, `바르고-Rx-${r.id.slice(3)} · 발행 ${tf(NOW, 'date')}`)),
+      h('div', { class: 'rx-h' }, h('span', { class: 't' }, '처 방 전'), h('span', { class: 'small mono muted' }, `바로고-Rx-${r.id.slice(3)} · 발행 ${tf(NOW, 'date')}`)),
       h('div', { class: 'rx-b' },
         h('dl', null,
           h('dt', null, '환자(사업장)'), h('dd', null, TEST.has(r.id) ? `미지 시료 (${CLSN[TR.cls]} 추정)` : `${SITE[r.s].name} · 현 시설 ${SITE[r.s].facility}`),

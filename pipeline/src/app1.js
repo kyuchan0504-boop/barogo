@@ -339,11 +339,11 @@ APP.pages.home = sec => {
     ['05', '관리', 'monitoring', '측정소 6곳의 연속 측정값으로 경보를 띄우고, 풍향과 센서 지문으로 원인 사업장을 역추적합니다.', h('span', null, '현재 ', h('b', null, lvCount.serious + lvCount.critical), '곳 주의 이상 · ', h('b', null, lvCount.warn), '곳 관심')],
   ];
   sec.append(
-    h('div', { class: 'hero' },
+    h('div', { class: 'hero hero-card' },
       h('div', { class: 'page-head' },
-        h('div', { class: 'eyebrow' }, '바르고 · 종합안내'),
+        h('div', { class: 'eyebrow' }, '바로고시스템 · 종합안내'),
         h('h1', null, '악취를 환자처럼 접수하고, 진단하고, 처방하고, 예보하고, 관리합니다'),
-        h('p', { class: 'lead' }, '‘바르고’는 태성환경연구소가 내건 ‘악취종합병원’을 하나의 웹 플랫폼으로 구현해 본 제안 프로토타입입니다. 각 진료센터의 AI 기능은 이 페이지 안에서 바로 계산되며, 로그인이나 외부 서버 없이 동작합니다.')),
+        h('p', { class: 'lead' }, '‘바로고시스템’은 악취종합병원의 전 과정을 한곳에서 쓰는 웹 플랫폼입니다. 고객은 냄새를 설명해 원인과 해결책을 안내받고, 직원은 측정 현황과 분석 기록을 바로 찾습니다. 회사 유튜브 영상 232개와 홈페이지 자료도 진료 흐름에 맞춰 연결했습니다.')),
       h('div', { class: 'axes', 'aria-label': '통합솔루션 4축' }, ['진단', '해결', '예측', '관리'].map(t => h('span', null, t)))),
     h('div', { class: 'journey' }, steps.map(([no, nm, id, what, live]) => h('a', { class: 'jstep', href: '#' + id }, h('span', { class: 'no' }, no), h('span', { class: 'nm' }, nm), h('span', { class: 'what' }, what), h('span', { class: 'live' }, live)))),
     h('a', { class: 'emr-bar', href: '#records' }, h('b', null, '전자차트'), h('span', { style: 'flex:1 1 300px' }, `분석 기록 ${REC.length}건(사업장 8곳, ${REC[0].ts.slice(0, 7)} ~ ${REC[REC.length - 1].ts.slice(0, 7)})을 “작년 여름 하수처리장 황화수소 가장 높았던 날”처럼 말로 검색하고, 엑셀 파일을 올려 함께 찾을 수 있습니다.`), h('span', { class: 'faint' }, '→')),
