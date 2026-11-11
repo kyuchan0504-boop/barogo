@@ -432,7 +432,7 @@ APP.pages.home = sec => {
         h('div', { class: 'eyebrow' }, '태성환경연구소 · 악취종합병원'),
         h('h1', null, '악취의 원인 규명부터 ', h('em', null, ['진단 ·', '설계 ·', '시공 ·', '모니터링 ·'].flatMap(t => [h('span', { class: 'nb' }, t), ' '])), h('span', { class: 'nb' }, h('em', null, '관제'), '까지,'), ' 한곳에서'),
         h('p', { class: 'lead' }, `바로고시스템은 태성환경연구소 홈페이지의 메뉴와 유튜브 영상 ${VID.length}개를 그대로 담고, 그 위에 AI 진료 기능을 더한 통합 웹 플랫폼입니다. 고객은 냄새를 설명해 원인과 해결책을 안내받고, 직원은 현황과 기록을 바로 찾습니다.`),
-        h('blockquote', { class: 'say' }, h('q', null, '악취원인규명과 설계, 시공, 관리용역까지 토탈솔루션으로 진단해드립니다.'), h('cite', null, '태성환경연구소 홈페이지의 엔지니어링 소개 문구')),
+        h('blockquote', { class: 'say' }, h('q', { class: 'big' }, '냄새를 보여드립니다'), h('cite', null, '태성환경연구소 본사 입구의 문구'), h('q', null, '악취원인규명과 설계, 시공, 관리용역까지 토탈솔루션으로 진단해드립니다.'), h('cite', null, '태성환경연구소 홈페이지의 엔지니어링 소개 문구')),
         h('div', { class: 'row' },
           h('button', { class: 'btn pri lg', type: 'button', onclick: () => { botBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); IB.inp.focus({ preventScroll: true }); } }, '안내봇과 시작하기'),
           h('a', { class: 'btn lg', href: '#intake' }, '냄새 상담 바로 하기'),
