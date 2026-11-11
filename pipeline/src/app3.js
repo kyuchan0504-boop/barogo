@@ -50,7 +50,7 @@ APP.pages.forecast = sec => {
         refs: [{ v: 15, label: '주의 15', color: 'var(--serious)' }], height: 220, tipExtra: k => `${dirName(FC.wd[i0 + k])}풍 ${f1(FC.ws[i0 + k] / 10)} m/s` }));
   };
   sec.append(
-    pageHead('04 예측센터', '어디서, 언제 냄새가 날지 미리 알려 드립니다', '과거 1년(8,760시간) 기상과 측정값을 기억해 두고, 예보 기상과 가장 비슷했던 과거 24개 시간의 측정값으로 측정소별 악취를 예측합니다(유사 기상 k-최근접 이웃). 풍향·풍속·기온·시각·평일 여부를 비교합니다.'),
+    pageHead('04 예측센터 — 모니터링 시스템 · 예보', '어디서, 언제 냄새가 날지 미리 알려 드립니다', '과거 1년(8,760시간) 기상과 측정값을 기억해 두고, 예보 기상과 가장 비슷했던 과거 24개 시간의 측정값으로 측정소별 악취를 예측합니다(유사 기상 k-최근접 이웃). 풍향·풍속·기온·시각·평일 여부를 비교합니다.'),
     h('div', { class: 'card stack' },
       h('div', { class: 'card-h' }, h('h3', null, `앞으로 24시간 예보 · ${tf(T.rows[0].ms)} ~ ${tf(T.rows[23].ms)}`), h('span', { class: 'small faint' }, '가상 기상예보 입력')),
       h('div', { class: 'answer' }, '가장 높은 예보는 ', h('b', null, `${STN[b.j].code} ${STN[b.j].name}, ${tf(T.rows[b.i].ms)} ${f1(b.v)}배(${lvl(b.v).t})`), '입니다. ', b.v >= 15 ? '해당 시간대 방지시설 가동률을 높이고 현장 순찰을 권고합니다.' : '주의 단계 이상 예보는 없습니다. 북서풍 계절이라 공단 냄새가 바다 쪽으로 빠지는 날이 많습니다.'),
@@ -66,11 +66,11 @@ APP.pages.forecast = sec => {
       h('div', { class: 'tbl-wrap' }, h('table', null,
         h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '평균오차 · AI'), h('th', { class: 'r' }, '평균오차 · 시간대 평균'), h('th', { class: 'r' }, '오차 감소'), h('th', { class: 'r' }, '상관계수 r'))),
         h('tbody', null, STN.map((s, j) => h('tr', null, h('td', null, `${s.code} ${s.name}`), h('td', { class: 'r mono' }, FC.mae[j].toFixed(2) + '배'), h('td', { class: 'r mono' }, FC.mae_base[j].toFixed(2) + '배'), h('td', { class: 'r mono' }, pct(1 - FC.mae[j] / FC.mae_base[j])), h('td', { class: 'r mono' }, FC.r[j].toFixed(2))))))),
-      h('p', { class: 'small muted' }, `주의(15배 이상) 시간 포착률 ${pct(FC.hit)} · 예보가 12배 이상일 때 실제로는 10배 미만이었던 비율 ${pct(FC.far)}. 돌발 공정 사고처럼 기상과 무관한 고농도는 예보할 수 없어서, 관리센터의 실시간 감시와 함께 씁니다.`)));
+      h('p', { class: 'small muted' }, `주의(15배 이상) 시간 포착률 ${pct(FC.hit)} · 예보가 12배 이상일 때 실제로는 10배 미만이었던 비율 ${pct(FC.far)}. 돌발 공정 사고처럼 기상과 무관한 고농도는 예보할 수 없어서, 관제센터의 실시간 감시와 함께 씁니다.`)));
   runWhatIf(); drawV();
 };
 
-/* ================= 05 관리센터 ================= */
+/* ================= 05 관제센터 ================= */
 function episodes() {
   const out = [];
   STN.forEach(st => {
@@ -88,7 +88,7 @@ APP.pages.monitoring = sec => {
   const M = { st: APP.monSel || (EP[0] ? EP[0].st : 'M3'), ch: 'ou', ep: APP.monSel ? EP.find(e => e.st === APP.monSel) || null : EP[0] || null };
   APP.monSel = null;
   const tiles = h('div', { class: 'tiles' }), chartBox = h('div', { class: 'card stack' }), mapBox = h('div', { class: 'card stack' }), alertBox = h('div', { class: 'card stack' }), btBox = h('div', { class: 'card stack' });
-  sec.append(pageHead('05 관리센터', '측정소 6곳을 24시간 지켜보고, 냄새가 나면 출처를 거꾸로 찾습니다', '복합악취·황화수소·TVOC·암모니아 센서와 풍향풍속계 값을 받아 단계별로 경보합니다. 경보가 뜨면 바람이 불어온 방향과 센서 성분 비율(센서 지문)을 업종별 배출 특성과 비교해 원인 사업장 후보를 순위로 보여 줍니다.'),
+  sec.append(pageHead('05 관제센터 — 모니터링 시스템 · 관제', '측정소 6곳을 24시간 지켜보고, 냄새가 나면 출처를 거꾸로 찾습니다', '복합악취·황화수소·TVOC·암모니아 센서와 풍향풍속계 값을 받아 단계별로 경보합니다. 경보가 뜨면 바람이 불어온 방향과 센서 성분 비율(센서 지문)을 업종별 배출 특성과 비교해 원인 사업장 후보를 순위로 보여 줍니다.'),
     tiles, h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start' }, mapBox, btBox), h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start' }, alertBox, chartBox));
   const CH = { ou: ['복합악취', '배'], h2s: ['황화수소', 'ppb'], tvoc: ['TVOC', 'ppb'], nh3: ['암모니아', 'ppb'] };
   const draw = () => {

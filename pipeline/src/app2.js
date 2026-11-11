@@ -46,7 +46,7 @@ APP.pages.intake = sec => {
   const out = h('div', { class: 'stack' }), outB = h('div');
   const run = () => renderIntake(out, outB, ta.value, area.value, when.value);
   sec.append(
-    pageHead('01 접수 · 문진', '어떤 냄새인지 말로 설명해 주세요', '주민 민원이나 고객 상담 내용을 그대로 입력하면, 냄새 표현을 10가지 냄새 유형과 비교해 의심 물질과 필요한 검사를 안내합니다. 사는 곳과 현재 바람을 함께 보고 냄새가 올 수 있는 사업장도 추려 줍니다.'),
+    pageHead('01 접수 · 문진 — 원인 규명', '어떤 냄새인지 말로 설명해 주세요', '주민 민원이나 고객 상담 내용을 그대로 입력하면, 냄새 표현을 10가지 냄새 유형과 비교해 의심 물질과 필요한 검사를 안내합니다. 사는 곳과 현재 바람을 함께 보고 냄새가 올 수 있는 사업장도 추려 줍니다.'),
     h('div', { class: 'split' },
       h('div', { class: 'card stack' },
         h('h3', null, '문진표'),
@@ -129,7 +129,7 @@ APP.pages.diagnosis = sec => {
     h('optgroup', { label: '전자차트 기록 (학습에 사용)' },
       REC.filter(r => !TEST.has(r.id)).slice().reverse().map(r => h('option', { value: r.id }, `${r.id} · ${SITE[r.s].name} · ${r.p} · ${r.ts.slice(0, 10)}`))));
   const left = h('div', { class: 'card stack' }), right = h('div', { class: 'stack' });
-  sec.append(pageHead('02 진단센터', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘악취지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
+  sec.append(pageHead('02 진단센터 — 원인 규명 · 진단', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘악취지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
     h('div', { class: 'split' }, left, right));
   const draw = () => { sel.value = DG.rec.id; renderDiagLeft(left, sel, draw); renderDiagRight(right, draw); };
   sel.addEventListener('change', () => { diagLoad(sel.value); draw(); });
@@ -241,7 +241,7 @@ function prescribe() {
 APP.pages.treatment = sec => {
   if (!TR.rec || APP.treatFrom) { const def = [...REC].reverse().find(x => x.s === 'S01' && x.p === '배출구' && !TEST.has(x.id)); treatLoad(APP.treatFrom || { id: def.id }); APP.treatFrom = null; }
   const box = h('div', { class: 'split' });
-  sec.append(pageHead('03 해결센터', '원인 물질에 맞춰 방지시설을 처방합니다', '진단 결과의 물질별 기여율을 성질(물에 녹는지, 산성인지 염기성인지, 타는지)에 따라 묶고, 그 비중과 풍량·농도 수준으로 공정 조합을 고릅니다. 규모는 일반적인 설계 범위로 계산한 개략값이며, 실제 설계는 현장 조사 후 확정합니다.'), box);
+  sec.append(pageHead('03 해결센터 — 설계 · 시공', '원인 물질에 맞춰 방지시설을 설계하고 시공으로 잇습니다', '진단 결과의 물질별 기여율을 성질(물에 녹는지, 산성인지 염기성인지, 타는지)에 따라 묶고, 그 비중과 풍량·농도 수준으로 공정 조합을 고릅니다. 규모는 일반적인 설계 범위로 계산한 개략값이며, 실제 설계는 현장 조사 후 확정합니다.'), box);
   const draw = () => renderTreat(box, draw);
   APP.upd.treatment = () => { if (APP.treatFrom) { treatLoad(APP.treatFrom); APP.treatFrom = null; draw(); } };
   draw();
@@ -281,7 +281,7 @@ function renderTreat(box, redraw) {
           h('div', { class: 'train' }, P.units.flatMap((u, i) => [i ? h('span', { class: 'arrow', 'aria-hidden': 'true' }, '→') : null,
             h('div', { class: 'unit' + (u.tsei ? ' tsei' : '') }, h('span', { class: 'k' }, u.k + (u.tsei ? ' · 태성 솔루션' : '')), h('span', { class: 'n' }, u.n), h('span', { class: 'd' }, u.d))]))),
         h('div', { class: 'stack' }, h('h4', null, '처방 근거'), h('ul', { style: 'margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px' }, P.why.map(w => h('li', null, w)))),
-        h('div', { class: 'stack' }, h('h4', null, '치료 일정'),
-          h('div', { class: 'train' }, ['정밀 진단(현장 포집·분석)', '기본·실시 설계', '시공', '시운전·성능 검증', '사후관리(모니터링·예보)'].flatMap((t, i) => [i ? h('span', { class: 'arrow', 'aria-hidden': 'true' }, '→') : null, h('div', { class: 'unit', style: 'min-width:110px;flex:1 1 110px' }, h('span', { class: 'k' }, String(i + 1).padStart(2, '0')), h('span', { class: 'd', style: 'color:var(--ink)' }, t))]))),
+        h('div', { class: 'stack' }, h('h4', null, '설계 · 시공 일정'),
+          h('div', { class: 'train' }, ['정밀 진단(현장 포집·분석)', '기본·실시 설계', '시공', '시운전·성능 검증', '사후관리(모니터링·관제)'].flatMap((t, i) => [i ? h('span', { class: 'arrow', 'aria-hidden': 'true' }, '→') : null, h('div', { class: 'unit', style: 'min-width:110px;flex:1 1 110px' }, h('span', { class: 'k' }, String(i + 1).padStart(2, '0')), h('span', { class: 'd', style: 'color:var(--ink)' }, t))]))),
         h('p', { class: 'tiny faint' }, '설계 범위 참고값: 세정탑 공탑속도 1.5 m/s, L/G 2 L/m³ · 바이오필터 공탑 체류 45초 · RTO 연소실 800~1000℃, 체류 1초 · 활성탄 공탑속도 0.4 m/s. 처리 효율은 현장 시험으로 확인합니다.'))));
 }
