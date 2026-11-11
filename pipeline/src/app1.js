@@ -1,3 +1,5 @@
+/* 안전장치: 요소에 배열이나 빈 값을 붙일 때 '[object …]' · 'null' 같은 글자가 화면에 찍히지 않게 합니다. */
+{ const _append = Element.prototype.append; Element.prototype.append = function (...kids) { return _append.apply(this, kids.flat(Infinity).filter(k => k != null && k !== false)); }; }
 'use strict';
 /* ================= 공통 ================= */
 const D = JSON.parse(document.getElementById('data').textContent);

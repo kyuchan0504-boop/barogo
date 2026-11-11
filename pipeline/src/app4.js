@@ -217,10 +217,10 @@ function sectionPage(S) {
         h('div', { class: 'row' }, ext('홈페이지에서 보기', it[1], 'chip co sm'),
           n ? h('button', { class: 'chip sm', type: 'button', onclick: () => { st.item = it; st.all = false; drawV(); vbox.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }, `관련 영상 ${n}`) : null));
     };
-    sec.append(pageHead(`회사 홈페이지 메뉴 · ${S.t}`, S.h, S.lead, 'co'),
+    sec.append(...[pageHead(`회사 홈페이지 메뉴 · ${S.t}`, S.h, S.lead, 'co'),
       S.ai.length ? h('div', { class: 'card stack ai-card' }, h('div', { class: 'card-h' }, h('h3', null, '바로고에서 바로 해 보기'), h('span', { class: 'small muted' }, '홈페이지 메뉴에 바로고가 더한 기능')), h('div', { class: 'tgrid' }, S.ai.map(toolLink))) : null,
       h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, `홈페이지 ‘${S.t}’ 메뉴 ${S.items.length}개`), ext(`홈페이지 ${S.t}`, S.items[0][1], 'small')), h('div', { class: 'igrid' }, S.items.map(icard))),
-      base.length ? vbox : null);
+      base.length ? vbox : null].filter(Boolean));
     if (base.length) { drawV(); requestAnimationFrame(drawV); }
   };
 }

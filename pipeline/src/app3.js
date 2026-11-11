@@ -383,7 +383,7 @@ function renderUploadAnswer(box, q, FILES) {
     if (lines.length) ans = h('span', null, lines.flatMap((t, i) => i ? [h('br'), t] : [t]));
   } else if (P.cmps.length && !withCol.length) ans += ' (질문한 물질 이름이 열 제목에서 보이지 않아 글자로만 찾았습니다.)';
   box.append(h('div', { class: 'answer' }, ans),
-    out.filter(o => o.rows.length).map(o => h('div', { class: 'stack' }, h('h4', null, `${o.S.file} › ${o.S.sheet} — ${o.rows.length}행`),
+    ...out.filter(o => o.rows.length).map(o => h('div', { class: 'stack' }, h('h4', null, `${o.S.file} › ${o.S.sheet} — ${o.rows.length}행`),
       h('div', { class: 'tbl-wrap scroll', style: 'max-height:260px' }, h('table', null,
         h('thead', null, h('tr', null, h('th', null, '행'), o.S.headers.map((x, k) => h('th', { style: k === o.col ? 'color:var(--accent)' : null }, x)))),
         h('tbody', null, o.rows.slice(0, 100).map(r => h('tr', { class: bestRows.has(r) ? 'hit' : null }, h('td', { class: 'mono' }, r.n), o.S.headers.map((_, k) => { const c = r.cells[k]; return h('td', { class: typeof c === 'number' ? 'r mono' : null }, c instanceof Date ? c.toISOString().slice(0, 10) : String(c ?? '')); })))))))));
