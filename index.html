@@ -17,6 +17,10 @@
   --ink-2: #3b4d47;
   --ink-3: #66776f;
   --line: #d7e3de;
+  --brand: #0b5cab;
+  --brand-deep: #0a3f78;
+  --brand-soft: #e8f1fb;
+  --brand-line: #c4d9f0;
   --accent: #0b7d5c;
   --accent-bright: #12a37a;
   --accent-soft: #e0f3ea;
@@ -50,29 +54,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- 상단 ---------- */
-.topbar { background: var(--surface); border-bottom: 3px solid var(--accent-bright); }
-.topbar-in { max-width: 1320px; margin: 0 auto; padding: 16px 24px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.topbar { background: var(--surface); border-bottom: 3px solid var(--brand); position: sticky; top: 0; z-index: 45; }
+.topbar-in { max-width: 1360px; margin: 0 auto; padding: 9px 24px; display: flex; gap: 14px; align-items: center; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
-.cross { width: 42px; height: 42px; border-radius: 10px; background: var(--accent-bright); display: grid; place-items: center; flex: none; }
-.brand-t { font-weight: 700; font-size: 24px; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.cross { width: 38px; height: 38px; border-radius: 10px; background: var(--accent-bright); display: grid; place-items: center; flex: none; }
+.brand-t { font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .brand-t em { font-style: normal; font-size: 16px; font-weight: 600; color: var(--accent); }
-.brand-s { font-size: 14px; color: var(--ink-2); }
+.brand-s { font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
 .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; align-items: center; }
 .tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 13.5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); white-space: nowrap; }
 .tag.virtual { border-color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, var(--surface)); color: var(--ink); }
 
 /* ---------- 본문 틀 ---------- */
-.shell { max-width: 1360px; margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 26px; align-items: start; }
-nav.dir { position: sticky; top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px; display: grid; gap: 2px; }
-.dir-h { font-size: 13px; letter-spacing: 0.06em; color: var(--ink-3); padding: 6px 10px 4px; }
-.dir a { display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 4px; padding: 10px 12px; border-radius: 8px; color: var(--ink); text-decoration: none; }
-.dir a .no { font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); }
-.dir a .nm { font-weight: 700; font-size: 16px; }
-.dir a .sb { grid-column: 2; font-size: 13.5px; color: var(--ink-2); line-height: 1.35; }
-.dir a:hover { background: var(--surface-2); }
-.dir a.on { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent-bright); }
-.dir a.on .no, .dir a.on .nm { color: var(--accent); }
-.dir hr { border: 0; border-top: 1px solid var(--line); margin: 6px 4px; }
+.shell { max-width: 1280px; margin: 0 auto; padding: 22px 24px 28px; }
 main { min-width: 0; display: grid; gap: 22px; }
 section.page { display: none; gap: 22px; }
 section.page.on { display: grid; }
@@ -86,7 +80,7 @@ section.page.on { display: grid; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 22px; align-items: start; }
-.stack { display: grid; gap: 14px; align-content: start; }
+.stack { display: grid; gap: 14px; align-content: start; grid-template-columns: minmax(0, 1fr); }
 .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
 /* ---------- 버튼·입력 ---------- */
@@ -102,9 +96,9 @@ section.page.on { display: grid; }
 input[type="text"], input[type="number"], select, textarea { background: var(--surface); border: 1px solid #c5d4ce; border-radius: 9px; padding: 9px 12px; width: 100%; font-size: 15.5px; color: var(--ink); }
 textarea { resize: vertical; min-height: 84px; line-height: 1.5; }
 input[type="range"] { width: 100%; accent-color: var(--accent); }
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg { display: inline-flex; max-width: 100%; border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
 .fl > .seg { justify-self: start; }
-.seg button { border: 0; background: var(--surface); padding: 7px 14px; font-size: 14.5px; cursor: pointer; border-right: 1px solid var(--line); }
+.seg button { flex: none; white-space: nowrap; border: 0; background: var(--surface); padding: 7px 14px; font-size: 14.5px; cursor: pointer; border-right: 1px solid var(--line); }
 .seg button:last-child { border-right: 0; }
 .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 
@@ -165,7 +159,7 @@ td input.cv { width: 96px; padding: 4px 7px; font-family: var(--font-mono); font
 .bar .lb { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--ink-2); }
 .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
-#tip { position: fixed; pointer-events: none; z-index: 50; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 9px; font-size: 14px; line-height: 1.45; max-width: 260px; opacity: 0; transition: opacity .1s; }
+#tip { position: fixed; pointer-events: none; z-index: 90; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 9px; font-size: 14px; line-height: 1.45; max-width: 260px; opacity: 0; transition: opacity .1s; }
 #tip.on { opacity: 1; }
 #tip b { font-family: var(--font-mono); }
 
@@ -228,12 +222,111 @@ td input.cv { width: 96px; padding: 4px 7px; font-family: var(--font-mono); font
 .heat .lbl { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cm td, .cm th { text-align: center; padding: 5px 6px; font-family: var(--font-mono); }
 .cm th:first-child, .cm td:first-child { text-align: left; font-family: var(--font-body); }
-footer { max-width: 1360px; margin: 0 auto; padding: 8px 24px 48px; color: var(--ink-3); font-size: 13.5px; }
-.disc { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 4px; }
+footer { background: #eef3f7; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 13.5px; margin-top: 24px; }
+.foot { max-width: 1280px; margin: 0 auto; padding: 24px 24px 90px; display: grid; gap: 16px; }
+.foot-g { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.foot-g b { font-size: 15.5px; color: var(--ink); }
+.foot-l { display: flex; gap: 14px; flex-wrap: wrap; align-items: start; }
+.foot-l a { color: var(--brand); font-weight: 600; }
+.disc { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 4px; color: var(--ink-3); font-size: 13px; }
+
+/* ---------- 상단 메뉴(회사 홈페이지와 같은 순서) ---------- */
+.skip { position: absolute; left: -999px; top: 8px; z-index: 100; padding: 8px 12px; background: var(--ink); color: #fff; border: 0; border-radius: 8px; }
+.skip:focus { left: 8px; }
+.gnb { display: flex; gap: 1px; margin-left: auto; align-items: center; }
+.gnb-i { position: relative; }
+.gnb-i > a { display: block; padding: 11px 10px; font-weight: 600; font-size: 15.5px; color: var(--ink); text-decoration: none; border-radius: 8px; white-space: nowrap; }
+.gnb-i > a:hover, .gnb-i.on > a { color: var(--brand); background: var(--brand-soft); }
+.gnb-i.ai > a { color: var(--accent); background: var(--accent-soft); margin-right: 4px; }
+.gnb-i.ai.on > a, .gnb-i.ai > a:hover { background: var(--accent); color: #fff; }
+.gnb-d { display: none; position: absolute; top: 100%; left: 0; min-width: 262px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: 0 0 12px 12px; box-shadow: 0 14px 30px rgba(19, 36, 32, 0.14); padding: 8px; z-index: 46; }
+.gnb-i:nth-last-child(-n+3) .gnb-d { left: auto; right: 0; }
+.gnb-i:hover .gnb-d, .gnb-i:focus-within .gnb-d { display: block; }
+.gnb.hide .gnb-d { display: none !important; }
+.gnb-d a, .drawer .dl a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 7px 10px; border-radius: 7px; text-decoration: none; color: var(--ink); font-size: 14.5px; white-space: nowrap; }
+.gnb-d a:hover, .drawer .dl a:hover { background: var(--surface-2); }
+.gnb-d .cap, .drawer .cap { font-size: 12px; color: var(--ink-3); padding: 8px 10px 2px; letter-spacing: 0.04em; }
+.gnb-d a.own, .drawer .dl a.own { font-weight: 600; color: var(--accent); justify-content: flex-start; }
+.gnb-d a.all, .drawer .dl a.all { font-weight: 700; color: var(--brand); background: var(--brand-soft); }
+.gnb-d .x, .drawer .x { color: var(--ink-3); font-size: 12px; }
+.ai-b { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 5px; background: var(--accent-bright); color: #fff; letter-spacing: 0.03em; line-height: 1.5; flex: none; }
+.util { display: flex; gap: 8px; align-items: center; flex: none; }
+.menu-btn { display: none; font-weight: 700; }
+.drawer { border-top: 1px solid var(--line); max-height: calc(100vh - 62px); overflow-y: auto; padding: 8px 16px 24px; background: var(--surface); }
+.drawer details { border-bottom: 1px solid var(--line); }
+.drawer summary { padding: 14px 4px; font-weight: 700; font-size: 16.5px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.drawer summary::-webkit-details-marker { display: none; }
+.drawer summary::after { content: "+"; font-family: var(--font-mono); color: var(--ink-3); }
+.drawer details[open] summary::after { content: "−"; }
+.drawer .dl { display: grid; gap: 2px; padding: 0 0 12px; }
+.drawer .dl a { font-size: 15.5px; padding: 10px; white-space: normal; }
+.drawer .dtop { display: flex; gap: 8px; padding: 10px 0; flex-wrap: wrap; }
+.notice { background: var(--brand-soft); border-bottom: 1px solid var(--brand-line); font-size: 13px; color: var(--ink-2); }
+.notice-in { max-width: 1360px; margin: 0 auto; padding: 5px 24px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.notice .tag { padding: 1px 10px; font-size: 12.5px; }
+.flow { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 16px; align-items: center; }
+.flow a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink-2); font-size: 14.5px; font-weight: 600; white-space: nowrap; }
+.flow a .no { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+.flow a:hover { border-color: var(--accent); color: var(--accent); }
+.flow a.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.flow a.on .no { color: #d6f1e6; }
+.flow .sep { color: var(--ink-3); flex: none; }
+.flow .gap { flex: none; width: 10px; }
+/* ---------- 첫 화면 ---------- */
+.hero2 { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 30px; align-items: center; background: linear-gradient(115deg, var(--brand-soft) 0%, #f1f9f5 62%, #ffffff 100%); border: 1px solid var(--brand-line); border-radius: 18px; padding: 34px; }
+.hero2 h1 { font-size: 34px; line-height: 1.3; }
+.hero2 h1 em { font-style: normal; color: var(--brand); }
+.hero2 .eyebrow { color: var(--brand); }
+.hero2 .stack { gap: 16px; }
+.stats { display: flex; gap: 26px; flex-wrap: wrap; }
+.stats b { font-size: 23px; font-family: var(--font-mono); display: block; line-height: 1.25; color: var(--brand-deep); }
+.stats span { font-size: 13.5px; color: var(--ink-2); }
+.btn.lg { padding: 12px 20px; font-size: 16px; border-radius: 10px; }
+.btn.brand { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+.vcard.big .vt { font-size: 16px; }
+.sec-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.sec-h p { color: var(--ink-2); font-size: 15px; }
+.how { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: how; }
+.how li { counter-increment: how; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.how li::before { content: counter(how); width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: grid; place-items: center; font-family: var(--font-mono); }
+.how b { display: block; }
+.how span { font-size: 14.5px; color: var(--ink-2); }
+.sgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.scard { display: grid; gap: 6px; align-content: start; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--brand); border-radius: var(--r); text-decoration: none; color: var(--ink); }
+.scard:hover { border-color: var(--brand); box-shadow: 0 6px 16px rgba(11, 92, 171, 0.12); }
+.scard b { font-size: 18px; }
+.scard .d { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.scard .m { font-size: 13px; color: var(--ink-3); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
+.bot-inline { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr) auto; height: 460px; background: var(--surface); }
+.steps { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; counter-reset: st; }
+.steps li { counter-increment: st; }
+.steps a { display: grid; grid-template-columns: 24px 1fr; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); text-decoration: none; color: var(--ink); }
+.steps a::before { content: counter(st); width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; margin-top: 2px; }
+.steps a:hover { border-color: var(--accent); }
+.steps b { display: block; font-size: 14.5px; }
+.steps span { font-size: 13px; color: var(--ink-2); }
+/* ---------- 메뉴별 통합 화면 ---------- */
+.page-head.co .eyebrow { color: var(--brand); }
+.ai-card { border-color: #bfe4d3; background: linear-gradient(180deg, #f3fbf7, #ffffff); }
+.tgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.tlink { display: grid; gap: 3px; padding: 12px 14px; border: 1px solid #bfe4d3; border-radius: 10px; background: var(--surface); text-decoration: none; color: var(--ink); }
+.tlink:hover { border-color: var(--accent); background: var(--accent-soft); }
+.tlink b { display: flex; gap: 6px; align-items: center; }
+.tlink span { font-size: 14px; color: var(--ink-2); }
+.igrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.icard { display: grid; gap: 6px; align-content: start; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.icard b { font-size: 16px; }
+.icard p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.icard .row { gap: 6px; margin-top: 2px; }
+.chip.co { border-color: var(--brand-line); color: var(--brand); background: var(--brand-soft); }
+.chip.sm { padding: 3px 10px; font-size: 13px; }
 
 /* ---------- 영상 · 챗봇 ---------- */
 .vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 .vgrid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vgrid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.nb { white-space: nowrap; }
+.n-short { display: none; }
 .vcard { display: grid; gap: 6px; align-content: start; text-align: left; background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink); min-width: 0; }
 .vcard .thumb { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--line); }
 .vcard img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -256,7 +349,7 @@ a.chip { text-decoration: none; display: inline-block; }
 .chat { position: fixed; right: 18px; bottom: 78px; z-index: 61; width: min(400px, calc(100vw - 24px)); height: min(560px, calc(100vh - 110px)); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 36px rgba(19, 36, 32, 0.22); display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; }
 .chat[hidden] { display: none; }
 .chat-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; background: var(--accent-soft); border-bottom: 1px solid var(--line); line-height: 1.35; }
-.chat-log { overflow-y: auto; padding: 12px; display: grid; gap: 10px; align-content: start; }
+.chat-log { position: relative; overflow-y: auto; padding: 12px; display: grid; gap: 10px; align-content: start; }
 .msg { display: flex; }
 .msg.me { justify-content: flex-end; }
 .bubble { max-width: 92%; padding: 9px 12px; border-radius: 12px; background: var(--surface-2); font-size: 14.5px; line-height: 1.55; min-width: 0; }
@@ -264,76 +357,94 @@ a.chip { text-decoration: none; display: inline-block; }
 .chat-f { display: flex; gap: 8px; padding: 10px; border-top: 1px solid var(--line); }
 .hero-card { background: linear-gradient(120deg, #e0f3ea 0%, #f1f9f5 55%, #ffffff 100%); border: 1px solid #bfe4d3; border-radius: 16px; padding: 26px; }
 
+@media (max-width: 1180px) {
+  .gnb, .util-q { display: none; }
+  .menu-btn { display: inline-flex; }
+  .util { margin-left: auto; }
+}
+@media (min-width: 1181px) { .drawer { display: none !important; } }
 @media (max-width: 1100px) {
   .journey { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .jstep::after { display: none; }
   .split { grid-template-columns: minmax(0, 1fr); }
+  .sgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero2 { grid-template-columns: minmax(0, 1fr); padding: 26px; }
+  .hero2 .vcard.big { max-width: 560px; }
 }
 @media (max-width: 860px) {
-  .shell { grid-template-columns: minmax(0, 1fr); padding: 16px; }
-  nav.dir { position: sticky; top: 0; z-index: 40; display: flex; overflow-x: auto; gap: 4px; border-radius: 0; margin: 0 -16px; border-left: 0; border-right: 0; }
-  h1 { font-size: 24px; }
-  .lead { font-size: 15.5px; }
-  .card { padding: 16px; }
-  .topbar-in { padding: 12px 16px; }
-  .brand-t { font-size: 20px; }
-  .brand-s { font-size: 12.5px; }
-  .pill-row { margin-left: 0; }
-  .hero-card { padding: 18px; }
-  .vgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tbl-wrap { -webkit-overflow-scrolling: touch; }
-  main { padding-bottom: 60px; }
-  .dir-h, .dir hr, .dir a .sb { display: none; }
-  .dir a { grid-template-columns: auto auto; white-space: nowrap; }
+  .shell { padding: 16px 16px 24px; }
   .grid2, .grid3 { grid-template-columns: minmax(0, 1fr) !important; }
   .hero { grid-template-columns: minmax(0, 1fr); }
   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  h1 { font-size: 24px; }
+  .hero2 h1 { font-size: 26px; }
+  .lead { font-size: 15.5px; }
+  .card { padding: 16px; }
+  .topbar-in { padding: 8px 16px; }
+  .notice-in { padding: 5px 16px; }
+  .brand-t { font-size: 19px; }
+  .hero2 { padding: 20px; border-radius: 14px; }
+  .vgrid, .vgrid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .n-long { display: none; }
+  .n-short { display: inline; }
+  .foot { padding: 20px 16px 90px; }
+  .bot-inline { height: 420px; }
 }
 @media (max-width: 520px) {
   .journey { grid-template-columns: minmax(0, 1fr); }
+  .sgrid { grid-template-columns: minmax(0, 1fr); }
   .bar { grid-template-columns: minmax(80px, 7em) minmax(48px, 1fr) max-content; }
   .rx dl { grid-template-columns: 1fr; }
   .heat .hr { grid-template-columns: 80px repeat(24, minmax(0, 1fr)); }
+  .stats { gap: 16px; }
+  .btn.lg { width: 100%; justify-content: center; }
+  .chat { right: 8px; left: 8px; width: auto; bottom: 74px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
+<button class="skip" id="skip" type="button">본문 바로가기</button>
 <header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="#home" aria-label="홈으로">
+    <a class="brand" href="#home" aria-label="바로고시스템 첫 화면">
       <span class="cross" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 18 18"><path d="M6.5 1h5v5.5H17v5h-5.5V17h-5v-5.5H1v-5h5.5z" fill="var(--accent-ink)"/></svg></span>
-      <span><span class="brand-t">바로고시스템 <em>(악취종합병원)</em></span><br><span class="brand-s">원인 규명부터 진단 · 설계 · 시공 · 모니터링 · 관제까지, 태성환경연구소 통합 웹 플랫폼(제안)</span></span>
+      <span><span class="brand-t">바로고시스템</span><br><span class="brand-s">태성환경연구소 악취종합병원</span></span>
     </a>
-    <div class="pill-row">
-      <span class="tag virtual">가상 데이터로 시연</span>
-      <span class="tag" id="nowTag">기준 시각</span>
+    <nav class="gnb" id="gnb" aria-label="주 메뉴"></nav>
+    <div class="util">
+      <a class="btn sm util-q" href="http://test.ts-ei.com:90/ts_ap_est/estimate_init.html" target="_blank" rel="noopener">온라인 문의 ↗</a>
+      <button class="btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drawer">메뉴</button>
     </div>
   </div>
+  <nav class="drawer" id="drawer" aria-label="전체 메뉴" hidden></nav>
 </header>
+<div class="notice"><div class="notice-in"><span class="tag virtual">제안 프로토타입</span><span id="nowTag"></span></div></div>
 
 <div class="shell">
-  <nav class="dir" aria-label="진료 안내">
-    <div class="dir-h">진료 안내</div>
-    <a href="#home" data-p="home"><span class="no">00</span><span class="nm">종합안내</span><span class="sb">한눈에 보는 진료 흐름</span></a>
-    <a href="#intake" data-p="intake"><span class="no">01</span><span class="nm">접수 · 문진</span><span class="sb">냄새 설명으로 원인 추정</span></a>
-    <a href="#diagnosis" data-p="diagnosis"><span class="no">02</span><span class="nm">진단센터</span><span class="sb">냄새 지문 AI 판독</span></a>
-    <a href="#treatment" data-p="treatment"><span class="no">03</span><span class="nm">해결센터</span><span class="sb">방지시설 처방 · 설계</span></a>
-    <a href="#forecast" data-p="forecast"><span class="no">04</span><span class="nm">예측센터</span><span class="sb">기상 기반 악취 예보</span></a>
-    <a href="#monitoring" data-p="monitoring"><span class="no">05</span><span class="nm">관리센터</span><span class="sb">실시간 모니터링 · 역추적</span></a>
-    <hr>
-    <a href="#videos" data-p="videos"><span class="no">VOD</span><span class="nm">영상관</span><span class="sb">회사 유튜브 232개 큐레이션</span></a>
-    <a href="#company" data-p="company"><span class="no">WEB</span><span class="nm">회사 자료</span><span class="sb">홈페이지 메뉴 바로가기</span></a>
-    <a href="#records" data-p="records"><span class="no">EMR</span><span class="nm">전자차트</span><span class="sb">분석 기록 자연어 검색</span></a>
-    <a href="#data" data-p="data"><span class="no">QA</span><span class="nm">데이터 검증</span><span class="sb">가상 데이터 근거와 정확도</span></a>
-  </nav>
-  <main id="main"></main>
+  <div id="flow"></div>
+  <main id="main" tabindex="-1"></main>
 </div>
 
 <footer>
-  <div class="disc">
-    <p>‘바로고시스템’은 (주)태성환경연구소 2027학년도 1학기 인턴십 사전 과제로 만든 웹 플랫폼 제안 프로토타입이며, 회사의 공식 웹사이트가 아닙니다.</p>
-    <p>영상과 홈페이지 링크는 태성환경연구소의 실제 유튜브 채널·홈페이지 자료입니다. 사업장 A~H, 측정소 M1~M6, 모든 분석값·센서값·기상값은 가상으로 생성한 시연 데이터입니다. 배출허용기준은 악취방지법 시행규칙 별표 3, 최소감지농도는 Nagata(2003) 값을 사용했습니다.</p>
+  <div class="foot">
+    <div class="foot-g">
+      <div>
+        <b>(주)태성환경연구소</b>
+        <p>울산 본사: 울산광역시 울주군 온산읍 회학3길 56-20 (학남국가산업단지) · 대표전화 052-247-8691</p>
+        <p>인천분석센터: 인천광역시 연수구 송도미래로 30 스마트밸리 E동 1108~1110 · 대표전화 032-213-8691</p>
+      </div>
+      <div class="foot-l">
+        <a href="http://www.ts-ei.com" target="_blank" rel="noopener">회사 홈페이지 ↗</a>
+        <a href="https://www.youtube.com/@태성환경연구소" target="_blank" rel="noopener">유튜브 채널 ↗</a>
+        <a href="http://www.ts-ei.com/main_en" target="_blank" rel="noopener">English ↗</a>
+        <a href="#data">데이터 검증</a>
+      </div>
+    </div>
+    <div class="disc">
+      <p>‘바로고시스템’은 (주)태성환경연구소 2027학년도 1학기 인턴십 사전 과제로 만든 웹 플랫폼 제안 프로토타입이며, 회사의 공식 웹사이트가 아닙니다.</p>
+      <p>메뉴 구성과 영상, 홈페이지 링크는 태성환경연구소의 실제 홈페이지·유튜브 채널을 따랐습니다. 사업장 A~H, 측정소 M1~M6, 모든 분석값·센서값·기상값은 가상으로 생성한 시연 데이터입니다. 배출허용기준은 악취방지법 시행규칙 별표 3, 최소감지농도는 Nagata(2003) 값을 사용했습니다.</p>
+    </div>
   </div>
 </footer>
 <div id="tip" role="status" aria-live="polite"></div>
@@ -438,7 +549,7 @@ function showTip(e, html) {
 const hideTip = () => tip.classList.remove('on');
 
 /* ================= AI 모델 ================= */
-// 1) 냄새 지문 판별 (다항 로지스틱 회귀)
+// 1) 악취지문 판별 (다항 로지스틱 회귀)
 function featVec(c) {
   const x = c.map((v, i) => Math.log10(Math.max(v, CMP[i].mdl / 2) / CMP[i].thr));
   const m = sum(x) / NC;
@@ -651,11 +762,11 @@ function go() {
     $('#main').append(sec); APP.built[id] = sec; APP.pages[id](sec);
   } else if (APP.upd[id]) APP.upd[id]();
   $$('section.page').forEach(s => s.classList.toggle('on', s === APP.built[id]));
-  $$('nav.dir a').forEach(a => { const on = a.dataset.p === id; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  updateNav(id);
   hideTip();
 }
 function nav(id) { if (location.hash === '#' + id) go(); else location.hash = id; window.scrollTo({ top: 0 }); }
-const pageHead = (eyebrow, title, lead) => h('div', { class: 'page-head' }, h('div', { class: 'eyebrow' }, eyebrow), h('h1', null, title), lead ? h('p', { class: 'lead' }, lead) : null);
+const pageHead = (eyebrow, title, lead, cls) => h('div', { class: 'page-head' + (cls ? ' ' + cls : '') }, h('div', { class: 'eyebrow' }, eyebrow), h('h1', null, title), lead ? h('p', { class: 'lead' }, lead) : null);
 
 /* 내일 예보 (홈·예측센터 공용) */
 const TOM = (() => {
@@ -667,43 +778,6 @@ const TOM = (() => {
   return { rows, best };
 })();
 
-/* ================= 00 종합안내 ================= */
-APP.pages.home = sec => {
-  const cur = Object.fromEntries(STN.map(s => [s.code, MON.st[s.code].ou[nowIdx]]));
-  const lvCount = { good: 0, warn: 0, serious: 0, critical: 0 };
-  Object.values(cur).forEach(v => lvCount[lvl(v).k]++);
-  const b = TOM.best, bst = STN[b.j];
-  const steps = [
-    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '10'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
-    ['02', '진단', 'diagnosis', '22종 지정악취물질 분석값의 구성비(냄새 지문)로 배출원 업종을 판독하고 기여율·기준 초과를 판정합니다.', h('span', null, '미지 시료 판독 정확도 ', h('b', null, pct(D.clf.te_acc, 0)))],
-    ['03', '해결', 'treatment', '원인 물질의 성질에 맞춰 세정·마이크로버블·바이오필터·RTO 등 방지시설 조합과 개략 규모를 처방합니다.', h('span', null, '처방 규칙 ', h('b', null, '7'), '개 물질군')],
-    ['04', '예측', 'forecast', '과거 1년의 유사 기상 사례로 측정소별 악취를 시간 단위로 예보합니다.', h('span', null, '24시간 내 최고 ', h('b', null, f1(b.v)), `배 · ${bst.code} ${new Date(TOM.rows[b.i].ms).getUTCHours()}시`)],
-    ['05', '관리', 'monitoring', '측정소 6곳의 연속 측정값으로 경보를 띄우고, 풍향과 센서 지문으로 원인 사업장을 역추적합니다.', h('span', null, '현재 ', h('b', null, lvCount.serious + lvCount.critical), '곳 주의 이상 · ', h('b', null, lvCount.warn), '곳 관심')],
-  ];
-  sec.append(
-    h('div', { class: 'hero hero-card' },
-      h('div', { class: 'page-head' },
-        h('div', { class: 'eyebrow' }, '바로고시스템 · 종합안내'),
-        h('h1', null, '악취를 환자처럼 접수하고, 진단하고, 처방하고, 예보하고, 관리합니다'),
-        h('p', { class: 'lead' }, '‘바로고시스템’은 악취종합병원의 전 과정을 한곳에서 쓰는 웹 플랫폼입니다. 고객은 냄새를 설명해 원인과 해결책을 안내받고, 직원은 측정 현황과 분석 기록을 바로 찾습니다. 회사 유튜브 영상 232개와 홈페이지 자료도 진료 흐름에 맞춰 연결했습니다.')),
-      h('div', { class: 'axes', 'aria-label': '통합솔루션 4축' }, ['진단', '해결', '예측', '관리'].map(t => h('span', null, t)))),
-    h('div', { class: 'journey' }, steps.map(([no, nm, id, what, live]) => h('a', { class: 'jstep', href: '#' + id }, h('span', { class: 'no' }, no), h('span', { class: 'nm' }, nm), h('span', { class: 'what' }, what), h('span', { class: 'live' }, live)))),
-    h('a', { class: 'emr-bar', href: '#records' }, h('b', null, '전자차트'), h('span', { style: 'flex:1 1 300px' }, `분석 기록 ${REC.length}건(사업장 8곳, ${REC[0].ts.slice(0, 7)} ~ ${REC[REC.length - 1].ts.slice(0, 7)})을 “작년 여름 하수처리장 황화수소 가장 높았던 날”처럼 말로 검색하고, 엑셀 파일을 올려 함께 찾을 수 있습니다.`), h('span', { class: 'faint' }, '→')),
-    h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,7fr) minmax(0,5fr)' },
-      h('div', { class: 'card' },
-        h('div', { class: 'card-h' }, h('h3', null, '지금 병동 현황'), h('span', { class: 'small faint mono' }, tf(NOW, 'full') + ' 기준')),
-        drawMap({ vals: cur, wind: { wd: MON.wd[nowIdx], ws: MON.ws[nowIdx] }, onSt: c => { APP.monSel = c; nav('monitoring'); } }),
-        h('p', { class: 'small muted', style: 'margin-top:8px' }, '원은 측정소(색 = 악취 단계), 사각형은 사업장입니다. 측정소를 누르면 관리센터로 이동합니다.')),
-      h('div', { class: 'card stack' },
-        h('h3', null, '측정소별 현재 값'),
-        h('div', { class: 'tbl-wrap' }, h('table', null,
-          h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '복합악취(배)'), h('th', null, '단계'))),
-          h('tbody', null, STN.map(st => h('tr', { class: 'click', onclick: () => { APP.monSel = st.code; nav('monitoring'); } },
-            h('td', null, h('b', null, st.code), ' ', st.name), h('td', { class: 'r mono' }, f1(cur[st.code])), h('td', null, lvTag(cur[st.code]))))))),
-        h('p', { class: 'small muted' }, '단계 구분: 정상 10배 미만 · 관심 10~15배 · 주의 15~30배 · 경보 30배 이상 (부지경계선 기타지역 기준 15배를 참고한 시연용 구분)'),
-        h('div', { class: 'note' }, `AI 기능 요약 — 냄새 지문 판독: 최근 3개월 미지 시료 ${D.clf.n_te}건 중 ${pct(D.clf.te_acc, 0)} 정답 · 악취 예보: 시간대 평균 대비 평균오차 ${pct(1 - sum(FC.mae) / sum(FC.mae_base), 0)} 감소 · 민원 역추적: 1순위 후보 적중 ${pct(D.bt.top1, 0)}(무작위 13%) · `, h('a', { href: '#data' }, '검증 자세히 보기'))))
-  );
-};
 
 /* ================= 01 접수 · 문진 ================= */
 const TESTS = {
@@ -803,7 +877,7 @@ function renderIntake(out, outB, txt, areaCode, when) {
             outside ? h('tr', null, h('td', { colspan: 3 }, known ? '+ 지정악취물질 22종 밖의 물질 가능성' : '특정하지 않음 — 22종 전체와 그 밖의 성분까지 분석')) : null)))),
       h('div', { class: 'card stack' }, h('h3', null, '추천 검사'),
         h('ul', { style: 'margin:0;padding-left:18px;display:grid;gap:4px' }, h('li', null, '복합악취: 공기희석관능법(부지경계선·민원 지점)'), tests.map(t => h('li', null, t))),
-        h('p', { class: 'small muted' }, '현장 포집 후 진단센터에서 지정악취물질 22종 분석값으로 냄새 지문을 판독합니다.'))));
+        h('p', { class: 'small muted' }, '현장 포집 후 진단센터에서 지정악취물질 22종 분석값으로 악취지문을 판독합니다.'))));
   outB.append(
     h('div', { class: 'card stack' },
       h('div', { class: 'card-h' }, h('h3', null, known ? '지금 바람 기준 의심 사업장' : '바람 방향·거리만으로 본 후보 사업장'), h('span', { class: 'small faint mono' }, `${tf(NOW, 'full')} · ${dirName(wd)}풍 ${f1(ws)} m/s · ${st.code} 현재 ${f1(curOu)}배`)),
@@ -836,7 +910,7 @@ APP.pages.diagnosis = sec => {
     h('optgroup', { label: '전자차트 기록 (학습에 사용)' },
       REC.filter(r => !TEST.has(r.id)).slice().reverse().map(r => h('option', { value: r.id }, `${r.id} · ${SITE[r.s].name} · ${r.p} · ${r.ts.slice(0, 10)}`))));
   const left = h('div', { class: 'card stack' }), right = h('div', { class: 'stack' });
-  sec.append(pageHead('02 진단센터', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘냄새 지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
+  sec.append(pageHead('02 진단센터', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘악취지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
     h('div', { class: 'split' }, left, right));
   const draw = () => { sel.value = DG.rec.id; renderDiagLeft(left, sel, draw); renderDiagRight(right, draw); };
   sel.addEventListener('change', () => { diagLoad(sel.value); draw(); });
@@ -874,7 +948,7 @@ function renderDiagRight(box, redraw) {
   box.innerHTML = '';
   box.append(
     h('div', { class: 'card stack' },
-      h('div', { class: 'card-h' }, h('h3', null, 'AI 냄새 지문 판독'), h('span', { class: 'small faint' }, '다항 로지스틱 회귀 · 22개 물질 구성비')),
+      h('div', { class: 'card-h' }, h('h3', null, 'AI 악취지문 판독'), h('span', { class: 'small faint' }, '다항 로지스틱 회귀 · 22개 물질 구성비')),
       h('div', { class: 'answer' }, '가장 가능성 높은 배출원 업종은 ', h('b', null, `${CLS[cl.top].kr} (${pP(cl.p[cl.top])})`), '입니다.'),
       barList(CLS.map((k, j) => ({ label: k.kr, value: cl.p[j], display: pP(cl.p[j]), top: j === cl.top })).sort((a, b) => b.value - a.value), { max: 1 }),
       h('div', { class: 'row small' }, h('span', { class: 'muted' }, '판단 근거:'), cl.why.slice(0, 3).map(w => h('span', { class: 'tag' }, `${CMP[w.i].kr} 비중 ${cl.z[w.i] > 0 ? '높음' : '낮음'}`))),
@@ -897,7 +971,7 @@ function renderDiagRight(box, redraw) {
           : h('p', { class: 'small muted' }, '배출구 시료는 복합악취 배출구 기준으로 판정합니다. 지정악취물질 기준은 부지경계선에 적용됩니다.'),
         h('p', { class: 'tiny faint' }, `예상식: log₁₀(희석배수) = ${D.reg[r.p].a} + ${D.reg[r.p].b}·log₁₀(ΣOAV+1), 과거 ${D.reg[r.p].n}건 회귀(r=${D.reg[r.p].r})`))),
     h('div', { class: 'card stack' },
-      h('h3', null, '유사한 과거 사례 (냄새 지문 유사도)'),
+      h('h3', null, '유사한 과거 사례 (악취지문 유사도)'),
       h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, '시료번호'), h('th', null, '일시'), h('th', null, '사업장'), h('th', null, '지점'), h('th', { class: 'r' }, '유사도'))),
         h('tbody', null, similar(cl.z, r.id).map(({ r: q, s }) => h('tr', { class: 'click', onclick: () => { diagLoad(q.id); redraw(); } },
           h('td', { class: 'mono' }, q.id), h('td', { class: 'mono' }, q.ts.slice(0, 10)), h('td', null, (TEST.has(q.id) ? '(비공개) ' : '') + (TEST.has(q.id) ? CLSN[SITE[q.s].cls] + ' 추정' : SITE[q.s].name)), h('td', null, q.p), h('td', { class: 'r mono' }, pct(s))))))),
@@ -1362,7 +1436,7 @@ APP.pages.data = sec => {
   sec.append(pageHead('데이터 검증', '가상 데이터를 어떻게 만들고 무엇으로 확인했는지', '실제 고객 데이터를 쓸 수 없어, 법정 기준과 문헌 값을 바탕으로 가상 데이터를 만들었습니다. 만든 데이터가 현실의 악취 현상과 같은 모양을 보이는지 12개 항목으로 검사했고, AI 모델은 학습에 쓰지 않은 기간으로 성능을 확인했습니다.'),
     h('div', { class: 'kv' },
       h('div', null, h('div', { class: 'k' }, '데이터 타당성 검사'), h('div', { class: 'v' }, `${ok}/${V.length}`, h('small', null, ' 통과'))),
-      h('div', null, h('div', { class: 'k' }, '냄새 지문 판독 (미지 시료)'), h('div', { class: 'v' }, pct(D.clf.te_acc, 0), h('small', null, ` · ${D.clf.n_te}건`))),
+      h('div', null, h('div', { class: 'k' }, '악취지문 판독 (미지 시료)'), h('div', { class: 'v' }, pct(D.clf.te_acc, 0), h('small', null, ` · ${D.clf.n_te}건`))),
       h('div', null, h('div', { class: 'k' }, '악취 예보 오차 감소'), h('div', { class: 'v' }, pct(1 - sum(FC.mae) / sum(FC.mae_base), 0), h('small', null, ' vs 시간대 평균'))),
       h('div', null, h('div', { class: 'k' }, '역추적 1순위 적중'), h('div', { class: 'v' }, pct(D.bt.top1, 0), h('small', null, ' (무작위 13%)')))),
     h('div', { class: 'card stack' }, h('h3', null, '데이터 타당성 검사'),
@@ -1370,7 +1444,7 @@ APP.pages.data = sec => {
         h('tbody', null, V.map(v => h('tr', null, h('td', null, h('span', { class: v.ok ? 'pass' : 'fail' }, v.ok ? '통과' : '미달')), h('td', { style: 'white-space:normal;min-width:160px' }, v.name), h('td', { style: 'white-space:normal;min-width:240px', class: 'small' }, v.detail), h('td', { style: 'white-space:normal;min-width:240px', class: 'small muted' }, v.basis)))))),
       h('p', { class: 'small muted' }, '난수 시드를 바꿔 5번 다시 생성해도 60개 검사 중 56개가 통과했습니다. 미달 4건은 모두 허용 범위 경계(예: 주의 시간 비율 상한 6.0%에 6.2~6.7%)였습니다.')),
     h('div', { class: 'grid2' },
-      h('div', { class: 'card stack' }, h('h3', null, '냄새 지문 판독 모델'),
+      h('div', { class: 'card stack' }, h('h3', null, '악취지문 판독 모델'),
         h('p', { class: 'small' }, `입력: 22종 농도 → log(OAV) → 시료별 평균을 빼 구성비만 남김 → 표준화. 모델: 다항 로지스틱 회귀. 학습 ${D.clf.n_tr}건(2026-08 이전), 5겹 교차검증 정확도 ${pct(D.clf.cv_acc, 1)}, 2026-08~10 미지 시료 ${D.clf.n_te}건 정확도 ${pct(D.clf.te_acc, 1)}. 지점별 교차검증: 배출구 ${pct(D.clf.acc_pt['배출구'], 1)}, 부지경계선 ${pct(D.clf.acc_pt['부지경계선'], 1)}(희석·배경 영향으로 더 어려움).`),
         h('h4', null, '교차검증 혼동행렬 (행: 실제, 열: 예측)'),
         h('div', { class: 'tbl-wrap' }, h('table', { class: 'cm' }, h('thead', null, h('tr', null, h('th', null, ''), CLS.map(k => h('th', null, { sewage: '하수', wastewater: '폐수', foodwaste: '음식물', livestock: '축산', feed: '사료', petrochem: '석유화학', coating: '도장' }[k.id])))),
@@ -1390,22 +1464,122 @@ APP.pages.data = sec => {
 };
 
 
-/* ================= 회사 자원 연계: 유튜브 영상 · 홈페이지 ================= */
+/* ================= 회사 자원: 유튜브 영상 · 홈페이지 메뉴 ================= */
 const VID = D.videos, VIDI = Object.fromEntries(VID.map(v => [v.id, v]));
 const VCAT = { I: '회사·종합소개', D: '진단·분석', S: '해결·설계시공', P: '예측·관리계획', M: '모니터링·관제', N: '센서·신기술', C: '탄소중립' };
 const VTAG = { auto: '자동차', live: '축산', bld: '건축자재', sew: '하수·슬러지', ind: '산업체 사례', en: 'English', short: '쇼츠' };
 const HP = 'http://www.ts-ei.com';
-const LINKS = [
-  { g: '접수 · 문의', k: 'intake', items: [['온라인 문의(견적)', 'http://test.ts-ei.com:90/ts_ap_est/estimate_init.html'], ['분석 의뢰', 'http://test.ts-ei.com:90/ts_ap_cu/'], ['온라인 문의', HP + '/inquiry'], ['카탈로그', HP + '/catalog']] },
-  { g: '진단 · 분석', k: 'diagnosis', items: [['악취원인규명', HP + '/cause'], ['악취기술진단', HP + '/OTD'], ['환경분석(악취)', HP + '/foul_smell'], ['건축자재', HP + '/building'], ['자동차 내장재', HP + '/automobile'], ['소형 챔버', HP + '/small_chamber'], ['대형 챔버', HP + '/enlarge_chamber'], ['분야별 시험분석방법', HP + '/exam'], ['분석 보유장비', HP + '/equipment']] },
-  { g: '해결 · 설계시공', k: 'treatment', items: [['엔지니어링(설계·시공)', HP + '/construction'], ['관리용역', HP + '/service'], ['엔지니어링 실적', HP + '/consulting'], ['MBSS 마이크로버블', HP + '/MBSS'], ['NET 신기술·혁신제품', HP + '/ts_net'], ['탈취제', HP + '/deodorant']] },
-  { g: '예측 · 관리 · 관제', k: 'monitoring', items: [['악취통합관리 소개', HP + '/management'], ['빅데이터·인공지능', HP + '/bigdata'], ['악취 모니터링 시스템', HP + '/m_odor_monitoring'], ['지능형 악취측정 장비', HP + '/OAE'], ['악취추적', HP + '/trace'], ['실시간 악취감시차량', HP + '/rt_car'], ['모니터링·포집 시스템', HP + '/odor_sampling'], ['장비 라인업', HP + '/omslineup'], ['통합관제실', HP + '/ICRoom']] },
-  { g: '연구 · 신사업', k: 'rnd', items: [['센서 개발 센터', HP + '/sensor'], ['NC센서', HP + '/airconditioner_bench'], ['마약탐지 전자코', HP + '/ggg'], ['악취추적로봇', HP + '/odor_kit'], ['반도체', HP + '/FABCenter'], ['탄소중립', HP + '/ts_spray'], ['열분해', HP + '/Pyrolysis']] },
-  { g: '회사 안내', k: 'company', items: [['회사소개', HP + '/outline'], ['연혁', HP + '/history'], ['특허·인증', HP + '/certification'], ['조직도', HP + '/organization'], ['회사 둘러보기', HP + '/CompanyTour'], ['공지사항', HP + '/notice'], ['보도자료', HP + '/news'], ['메일링', HP + '/mailing'], ['English', HP + '/main_en']] },
-];
-const ext = (t, u, cls = 'chip') => h('a', { class: cls, href: u, target: '_blank', rel: 'noopener' }, t, ' ↗');
+const Q_EST = 'http://test.ts-ei.com:90/ts_ap_est/estimate_init.html', Q_REQ = 'http://test.ts-ei.com:90/ts_ap_cu/';
+const url = u => u.startsWith('http') ? u : HP + u;
+const ext = (t, u, cls = 'chip') => h('a', { class: cls, href: url(u), target: '_blank', rel: 'noopener' }, t, ' ↗');
+const vids = ids => ids.map(i => VIDI[i]).filter(Boolean);
+const vfn = f => !f ? null : (typeof f === 'function' ? f : v => f.test(v.t));
 
-/* 영상 재생 창 */
+/* 바로고가 더한 AI 기능 */
+const TOOLS = {
+  intake: { no: '01', t: '접수 · 문진', d: '냄새를 말로 설명하면 유형 · 의심 물질 · 필요한 검사를 안내' },
+  diagnosis: { no: '02', t: '진단센터', d: '분석값 22종의 악취지문으로 배출원 업종을 판독' },
+  treatment: { no: '03', t: '해결센터', d: '원인 물질에 맞는 방지시설 조합과 규모를 처방' },
+  forecast: { no: '04', t: '예측센터', d: '기상 조건으로 24시간 악취를 예보' },
+  monitoring: { no: '05', t: '관리센터', d: '측정소 현황 · 경보 · 원인 사업장 역추적' },
+  records: { no: 'EMR', t: '전자차트', d: '분석 기록과 엑셀을 문장으로 검색' },
+  videos: { no: 'VOD', t: '영상관', d: `회사 유튜브 영상 ${VID.length}개를 분류별로 검색 · 재생` },
+};
+const TOOL_ORDER = ['intake', 'diagnosis', 'treatment', 'forecast', 'monitoring', 'records'];
+
+/* 회사 홈페이지(ts-ei.com)의 상단 메뉴를 같은 순서로 옮김. 항목: [이름, 주소, 한 줄 설명, 관련 영상 조건, 하위 링크] */
+const SECTIONS = [
+  { id: 'about', t: '회사소개', vc: 'I', h: '악취를 과학으로 푸는 회사, 태성환경연구소', ai: [],
+    lead: '1997년 설립 이후 평가분석, 연구개발 · 엔지니어링, 악취관리시스템을 해 온 회사입니다. 울산 본사와 인천분석센터를 두고 있습니다.',
+    vf: v => v.c === 'I', items: [
+      ['개요', '/outline', '회사명, 설립 연도, 사업 분야, 본사와 분석센터 주소'],
+      ['연혁', '/history', '1997년부터 올해까지의 특허 등록 · 인증 · 박람회 참가 기록'],
+      ['특허/인증', '/certification', '냄새제거제 · 소취성 조성물 등 특허와 KOLAS 인정 내역', /소취성|탈취제 품질|deodorant/i],
+      ['조직도', '/organization', '부서 구성'],
+      ['회사 둘러보기', '/CompanyTour', '회사 전경, 실험실, FAB 센터, 환경분석실, 통합관제실, 인천 · 여수센터', /회사 소개|홈페이지 메인|박람회|Chinese/],
+      ['기업부설연구소', '/research', '2002년 인정된 부설연구소의 국책과제 · 기업 협업 프로젝트 · 소재평가'],
+      ['통합관제실(VIP룸)', '/ICRoom', '화학사고 · 악취 관제, 추적 차량, 민원 정보 등 관제실 운영 프로그램', /관제/],
+      ['탄소중립설비실험실', '/CNLaboratory', '탄소중립 설비를 시험하는 실험실', v => v.c === 'C'],
+      ['전략적 투자 유치', '/insulation', '투자 유치 안내'],
+      ['개인정보보호방침', '/privacy', '개인정보 처리 방침'],
+    ] },
+  { id: 'semi', t: '반도체', vc: 'N', h: '악취를 읽는 ‘디지털 후각’의 뿌리, 반도체 · 센서', ai: [],
+    lead: '반도체 설계와 나노 공정 기술로 가스 센서, NC센서, 전자코, 악취추적로봇을 개발합니다. 악취 모니터링 장비의 센서가 여기서 나옵니다.',
+    vf: v => v.c === 'N', items: [
+      ['나노 FAB센터', '/FABCenter', '웨이퍼 · 박막 기반 유해가스 센서 소자를 만드는 공정실과 장비', /클린룸|증착|화학실험실|제조 공정/],
+      ['반도체 칩 설계 기술센터', '/drone', 'D램 · SCM(Storage Class Memory) 소자 설계 기술'],
+      ['센서 개발 센터', '/sensor', '수소 · 암모니아 필름센서, 칩 기반 가스센서, 바이오센서 개발', /센서 개발|필름 ?센서|수소|HF/],
+      ['악취추적로봇', '/odor_kit', '스스로 이동하며 구역의 악취 흐름을 보여 주는 로봇', /로봇/],
+      ['NC센서', '/airconditioner_bench', '여러 가스를 동시에 감지하는 센서 어레이와 AI 패턴 분석', /NC ?센서|NC Sensors|나노복합체|센서박스|고분자/i],
+      ['마약탐지 전자코', '/ggg', '공기 중 미세한 휘발성 신호를 감지하는 초소형 전자코', /전자코|마약|Drug|E-Nose/i],
+    ] },
+  { id: 'carbon', t: '탄소중립', vc: 'C', h: '수소 · 열분해 · 마이크로버블로 탄소중립에 대응합니다', ai: ['treatment'],
+    lead: '마이크로버블 약액세정탑은 물에 잘 녹지 않는 복합악취를 처리하는 기술로 혁신제품에 선정됐습니다. 해결센터의 처방에도 이 기술이 들어갑니다.',
+    vf: v => v.c === 'C' || /마이크로 ?버블|Microbubble|NET Scrubber/i.test(v.t), items: [
+      ['탄소중립', '/ts_spray', '석유화학단지 · 화력발전소 등 탄소중립 시스템 구상', /탄소|소다/],
+      ['열분해', '/Pyrolysis', '폐플라스틱을 열분해해 오일과 수소로 바꾸는 기술', /열분해/],
+      ['혁신제품 선정', '/ts_net', '마이크로버블 약액세정탑의 구조와 특징(난용성 복합악취 처리)', /NET|마이크로 ?버블|Microbubble/i],
+      ['MBSS', '/MBSS', '악취 · 미세먼지 · 유해 화학물질을 함께 줄이는 마이크로버블 스크러버 시스템', /마이크로 ?버블|Microbubble|버스정류장/i],
+    ] },
+  { id: 'engineering', t: '엔지니어링', vc: 'S', h: '원인 규명에서 설계 · 시공 · 운영 관리까지', ai: ['diagnosis', 'treatment'],
+    lead: '악취 원인 규명 결과를 바탕으로 방지시설을 진단하고 설계 · 시공하며, 운영 관리까지 맡는 종합 엔지니어링입니다.',
+    vf: v => v.c === 'S', items: [
+      ['설계시공', '/construction', '기존 방지시설 진단, 풍량 산정, 덕트 · 방지시설 설계와 시공 사례', /시공|개조|엔지니어링|Engineering|스크러버|탈취기/i],
+      ['악취원인규명', '/cause', '시료 채취 → 관능평가 → 기기분석으로 원인 물질을 찾는 절차', /원인|규명|최소감지/],
+      ['관리용역', '/service', '순환수 교체, 약품량 조절 등 방지시설 운영 관리', /관리방안|운영관리|관리 ?계획|민원관리/],
+      ['엔지니어링 실적', '/consulting', '연도별 컨설팅 · 설계 · 시공 용역 목록', v => v.g === 'ind' || v.g === 'sew'],
+      ['악취기술진단', '/OTD', '공공 하수 · 분뇨 · 음식물 처리시설 등 법정 기술진단 대상과 절차', /진단|컨설팅|자원화|매립/],
+      ['탈취제', '/deodorant', '분석 결과에 맞춰 개발하는 맞춤형 탈취제와 적용 시설', /탈취제|소취|deodor/i],
+    ] },
+  { id: 'analysis', t: '환경분석', vc: 'D', h: '보이지 않는 냄새를 숫자로 바꿉니다', ai: ['diagnosis', 'records'],
+    lead: '악취, 건축자재, 자동차 내장재에서 나오는 물질을 측정 · 분석합니다. KOLAS 국제공인시험기관으로서 시험 성적을 냅니다.',
+    vf: v => v.c === 'D', items: [
+      ['악취', '/foul_smell', '사업장 악취 측정, 방지시설 효율 평가, 복합악취 · 지정악취물질 분석', /복합악취|지정 악취|관능|냄새평가|재현|OAE|odna|LC분석/i],
+      ['건축자재', '/building', '실내 건축자재의 유해물질 방출량 평가', v => v.g === 'bld'],
+      ['자동차 내장재', '/automobile', '신차 실내 내장재의 유해물질 · 냄새 평가', v => v.g === 'auto'],
+      ['소형 챔버', '/small_chamber', '건축자재 방출 시험용 소형 챔버 시스템', /소형 ?챔버|chamber/i],
+      ['대형 챔버', '/enlarge_chamber', '자동차 부품 · 모듈처럼 큰 시료의 VOC 방출 시험', /챔버오븐|벤치|모듈부품|형틀/],
+    ] },
+  { id: 'management', t: '악취통합관리', vc: 'M', h: '측정하고, 추적하고, 예보합니다', ai: ['monitoring', 'forecast', 'intake'],
+    lead: '센서와 기상 자료, 다년간의 분석 데이터를 결합해 악취를 모니터링하고 발생원을 추적하는 통합 관리 시스템입니다.',
+    vf: v => v.c === 'M' || v.c === 'P', items: [
+      ['소개', '/management', '악취통합관리시스템의 구성: 악취 추적, 센서, 드론 포집', /통합 ?관제|통합관리|통합 모니터링|Integrated|스마트클라우드|초연결/i],
+      ['지능형 악취측정 장비', '/OAE', 'AI 악취 분석 장비(OAE)', /OAE|측정기|TOMS/],
+      ['악취추적', '/trace', '풍향 · 풍속과 센서 값으로 악취 모델링을 만들어 발생원을 추적', /추적/],
+      ['실시간악취감시차량', '/rt_car', '이동하며 실시간으로 분석해 악취 지도를 그리는 감시 차량', /차량|시프트매/],
+      ['악취 모니터링 시스템', '/m_odor_monitoring', '공단 · 처리장 주변에 설치해 냄새 종류와 세기를 실시간 측정', /모니터링/],
+      ['모니터링 및 포집 시스템', '/odor_sampling', '기준을 넘으면 알람을 울리고 자동으로 시료를 포집하는 장비', /포집|드론|Drone/i],
+      ['모니터링장비라인업', '/omslineup', '고정식 · 이동식 · 휴대용 장비 사양', v => /장비|휴대용|포터블|oms/i.test(v.t) && !/전자코/.test(v.t)],
+      ['빅데이터 인공지능', '/bigdata', '민원 추적, 감시차량, 추적 시스템 등 실제 운영 프로그램', /예측|예보|민원/,
+        [['민원 추적', 'http://219.249.140.29:23580/tsei_sv3_spjr/sub_main.do?group=G2110001'], ['악취 감시차량', 'http://219.249.140.29:21780/'], ['악취 추적 시스템', 'http://219.249.140.29:23180/smart_grid.html'], ['전국 오염도 현황', 'http://1.253.30.55:29192/']]],
+    ] },
+  { id: 'library', t: '기술자료', vc: '', h: '공지 · 카탈로그 · 시험방법 · 영상을 한곳에', ai: ['videos', 'records'],
+    lead: '회사 홈페이지의 자료실입니다. 영상은 바로고 영상관에서 분류별로 찾고, 분석 기록은 전자차트에서 문장으로 검색할 수 있습니다.',
+    vf: () => true, items: [
+      ['영상 자료', '/video', '홈페이지의 영상 목록. 바로고 영상관에서 전체를 분류 · 검색할 수 있습니다'],
+      ['공지사항', '/notice', '회사 소식과 행사 안내'],
+      ['카달로그', '/catalog', '회사 · 제품 카탈로그 내려받기'],
+      ['메일링', '/mailing', '기술 소개 메일링 모음'],
+      ['기술동향', '/foreign', '반도체 등 기술 동향 기사'],
+      ['분석 보유장비', '/equipment', 'GC/MS 등 분석 장비 목록'],
+      ['스마트 개발 보유장비', '/SMTequipment', '센서 · 반도체 개발 장비 목록'],
+      ['자료실_CI', '/ci', '회사 CI 자료'],
+      ['분야별 시험분석방법', '/exam', '황화합물 · 알데하이드 · 스타이렌 등 악취 시험방법 문서'],
+      ['태성환경 보도', '/news', '언론 보도 모음'],
+    ] },
+  { id: 'support', t: '제품소개', vc: '', h: '제품을 살펴보고, 분석 의뢰와 견적 문의를 접수합니다', ai: ['intake'],
+    lead: '무엇을 문의해야 할지 모르겠다면 접수 · 문진에서 먼저 냄새를 설명해 보세요. 의심 물질과 필요한 검사를 알고 문의하면 상담이 빨라집니다.',
+    vf: null, items: [
+      ['제품설명', 'http://test.ts-ei.com:12131/', '제품 소개 페이지'],
+      ['분석 의뢰', Q_REQ, '시험 의뢰 내용을 온라인으로 작성해 접수'],
+      ['온라인 문의(견적)', Q_EST, '견적과 상담 문의'],
+      ['온라인 문의 게시판', '/inquiry', '홈페이지 문의 게시판'],
+    ] },
+];
+const SECI = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
+const N_ITEMS = SECTIONS.reduce((a, s) => a + s.items.length + s.items.reduce((b, it) => b + (it[4] ? it[4].length : 0), 0), 0);
+
+/* ---------- 영상 카드와 재생 창 ---------- */
 function playVideo(v) {
   const close = () => { m.remove(); document.removeEventListener('keydown', onKey); };
   const onKey = e => { if (e.key === 'Escape') close(); };
@@ -1415,30 +1589,31 @@ function playVideo(v) {
       h('div', { class: 'frame' }, h('iframe', { src: `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0`, title: v.t, allow: 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: true, referrerpolicy: 'strict-origin-when-cross-origin' })),
       h('div', { class: 'row small', style: 'justify-content:space-between' }, h('span', { class: 'muted' }, `${VCAT[v.c]}${v.g ? ' · ' + VTAG[v.g] : ''} · 태성환경연구소 유튜브`), h('a', { href: `https://www.youtube.com/watch?v=${v.id}`, target: '_blank', rel: 'noopener' }, '유튜브에서 보기 ↗'))));
   document.body.append(m); document.addEventListener('keydown', onKey);
+  m.querySelector('button').focus();
 }
-function vCard(v) {
-  return h('button', { class: 'vcard', type: 'button', onclick: () => playVideo(v) },
-    h('span', { class: 'thumb' }, h('img', { src: `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`, alt: '', loading: 'lazy' }), v.d ? h('span', { class: 'dur mono' }, v.d) : null, h('span', { class: 'play', 'aria-hidden': 'true' }, '▶')),
+function vCard(v, big) {
+  return h('button', { class: 'vcard' + (big ? ' big' : ''), type: 'button', onclick: () => playVideo(v), 'aria-label': v.t + ' 영상 재생' },
+    h('span', { class: 'thumb' }, h('img', { src: `https://i.ytimg.com/vi/${v.id}/${big ? 'hqdefault' : 'mqdefault'}.jpg`, alt: '', loading: big ? 'eager' : 'lazy' }), v.d ? h('span', { class: 'dur mono' }, v.d) : null, h('span', { class: 'play', 'aria-hidden': 'true' }, '▶')),
     h('span', { class: 'vt' }, v.t), h('span', { class: 'vm' }, VCAT[v.c] + (v.g ? ' · ' + VTAG[v.g] : '')));
 }
-const vids = ids => ids.map(i => VIDI[i]).filter(Boolean);
-
-/* 센터별 관련 자료 */
-const REL = {
-  intake: { v: ['Ra6sWXzplSY', '4XyuvEA8C1k', 'CvKVecloF1k', '1tu2rkYij2o'], l: 'intake' },
-  diagnosis: { v: ['OCy9s_6FR1Y', 'qDyHnUMmHnA', 'ON8HULK9kgc', 'o35_OJQRy3o'], l: 'diagnosis' },
-  treatment: { v: ['m0qDXr-THUA', 'XaD_EFCeUhU', 'lrEafJ8kpcY', 'B2UaXKCRgnU'], l: 'treatment' },
-  forecast: { v: ['3a22gD0nQwo', 'pUGMy1kA2vw', 'Tiu44QpiUcI', 'zNsd1LEuq70'], l: 'monitoring' },
-  monitoring: { v: ['Nv_6FU_roMQ', 'yQom_f6-4aM', 'JT1t6yaAhFI', '8rQL2wxcsYM'], l: 'monitoring' },
-  records: { v: ['-HS_ziOyHbY', 'jE9m_Zm8o60', 'sp22rKyIqUI'], l: 'monitoring' },
-};
 const VFILTER = { cat: '', tag: '', q: '' };
+const toolLink = id => h('a', { class: 'tlink', href: '#' + id }, h('b', null, h('span', { class: 'ai-b' }, id === 'videos' ? 'NEW' : 'AI'), TOOLS[id].t), h('span', null, TOOLS[id].d));
+
+/* ---------- AI 진료 화면 아래: 관련 영상과 홈페이지 메뉴 ---------- */
+const REL = {
+  intake: { v: ['Ra6sWXzplSY', '4XyuvEA8C1k', 'CvKVecloF1k', '1tu2rkYij2o'], s: 'support' },
+  diagnosis: { v: ['OCy9s_6FR1Y', 'qDyHnUMmHnA', 'ON8HULK9kgc', 'o35_OJQRy3o'], s: 'analysis' },
+  treatment: { v: ['m0qDXr-THUA', 'XaD_EFCeUhU', 'lrEafJ8kpcY', 'B2UaXKCRgnU'], s: 'engineering' },
+  forecast: { v: ['3a22gD0nQwo', 'pUGMy1kA2vw', 'Tiu44QpiUcI', 'zNsd1LEuq70'], s: 'management' },
+  monitoring: { v: ['Nv_6FU_roMQ', 'yQom_f6-4aM', 'JT1t6yaAhFI', '8rQL2wxcsYM'], s: 'management' },
+  records: { v: ['-HS_ziOyHbY', 'jE9m_Zm8o60', 'sp22rKyIqUI', 'q4k8XWMl6tg'], s: 'library' },
+};
 function relCard(id) {
-  const r = REL[id], L = LINKS.find(x => x.k === r.l);
+  const r = REL[id], S = SECI[r.s];
   return h('div', { class: 'card stack' },
-    h('div', { class: 'card-h' }, h('h3', null, '관련 영상 · 회사 자료'), h('a', { href: '#videos', class: 'small' }, '영상관 전체 보기 →')),
-    h('div', { class: 'vgrid' }, vids(r.v).map(vCard)),
-    h('div', { class: 'row' }, h('span', { class: 'small muted' }, '회사 홈페이지:'), L.items.slice(0, 6).map(([t, u]) => ext(t, u))));
+    h('div', { class: 'card-h' }, h('h3', null, '관련 영상 · 회사 홈페이지'), h('a', { href: '#' + S.id, class: 'small' }, `‘${S.t}’ 메뉴 전체 보기 →`)),
+    h('div', { class: 'vgrid four' }, vids(r.v).map(v => vCard(v))),
+    h('div', { class: 'row' }, h('span', { class: 'small muted' }, `홈페이지 ‘${S.t}’:`), S.items.slice(0, 6).map(it => ext(it[0], it[1], 'chip co sm'))));
 }
 Object.keys(REL).forEach(id => { const f = APP.pages[id]; APP.pages[id] = sec => { f(sec); sec.append(relCard(id)); }; });
 
@@ -1455,7 +1630,7 @@ renderIntake = function (out, outB, txt, areaCode, when) {
   const top = analyzeText(txt).find(r => r.hits.length);
   if (!top) return;
   const list = vidsForType(top.t.id);
-  if (list.length) outB.append(h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, `${top.t.nm} 악취, 이렇게 해결했습니다`), h('span', { class: 'small faint' }, '냄새 유형에 맞춰 자동 추천')), h('div', { class: 'vgrid' }, list.map(vCard))));
+  if (list.length) outB.append(h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, `${top.t.nm} 악취, 이렇게 해결했습니다`), h('span', { class: 'small faint' }, '냄새 유형에 맞춰 자동 추천')), h('div', { class: 'vgrid four' }, list.map(v => vCard(v)))));
 };
 
 /* ================= 영상관 ================= */
@@ -1474,54 +1649,126 @@ APP.pages.videos = sec => {
     [['', '분야 전체'], ...Object.entries(VTAG)].forEach(([k, t]) => tagRow.append(h('button', { class: 'chip', type: 'button', 'aria-pressed': String(VFILTER.tag === k), onclick: () => { VFILTER.tag = k; draw(); } }, t)));
   };
   q.addEventListener('input', () => { VFILTER.q = q.value; draw(); });
-  sec.append(pageHead('영상관', `회사 유튜브 영상 ${VID.length}개를 진료 흐름대로 정리했습니다`, '태성환경연구소 유튜브 채널의 모든 영상을 AI가 제목을 읽고 7개 진료 단계와 6개 분야로 분류했습니다. 영상을 누르면 이 화면에서 바로 재생됩니다.'),
-    h('div', { class: 'card stack' }, h('h3', null, '처음이라면 이 영상부터'), h('div', { class: 'vgrid' }, vids(['T_mptCb0Qq8', 'CvKVecloF1k', 'm0qDXr-THUA', 'Nv_6FU_roMQ']).map(vCard))),
+  sec.append(pageHead('기술자료 · 영상관', `회사 유튜브 영상 ${VID.length}개를 진료 흐름대로 정리했습니다`, '태성환경연구소 유튜브 채널의 모든 영상을 AI가 제목을 읽고 7개 진료 단계와 6개 분야로 분류했습니다. 영상을 누르면 이 화면에서 바로 재생됩니다.', 'co'),
+    h('div', { class: 'card stack' }, h('h3', null, '처음이라면 이 영상부터'), h('div', { class: 'vgrid four' }, vids(['T_mptCb0Qq8', 'CvKVecloF1k', 'm0qDXr-THUA', 'Nv_6FU_roMQ']).map(v => vCard(v)))),
     h('div', { class: 'card stack' }, q, catRow, tagRow, cnt, grid));
   APP.upd.videos = () => { q.value = VFILTER.q; draw(); };
   draw();
 };
 
-/* ================= 회사 자료 ================= */
-APP.pages.company = sec => {
-  sec.append(pageHead('회사 자료', '회사 홈페이지의 메뉴를 진료 흐름에 맞춰 다시 묶었습니다', '태성환경연구소 홈페이지(ts-ei.com)의 주요 기능과 자료를 접수 → 진단 → 해결 → 관리 순서로 정리했습니다. 누르면 회사 홈페이지의 해당 화면이 새 창으로 열립니다.'),
-    h('div', { class: 'grid2' }, LINKS.map(L => h('div', { class: 'card stack' },
-      h('div', { class: 'card-h' }, h('h3', null, L.g), REL[L.k] ? h('a', { class: 'small', href: '#' + L.k }, '바로고 ' + L.g.split(' ')[0] + ' 화면 →') : null),
-      h('div', { class: 'row' }, L.items.map(([t, u]) => ext(t, u)))))),
-    h('div', { class: 'card stack' }, h('h3', null, '연락처'),
-      h('p', null, '울산 본사: 울산광역시 울주군 온산읍 회학3길 56-20 (학남국가산업단지) · 대표전화 052-247-8691'),
-      h('p', null, '인천분석센터: 인천광역시 연수구 송도미래로 30 스마트밸리 E동 1108~1110 · 대표전화 032-213-8691'),
-      h('div', { class: 'row' }, ext('회사 홈페이지', HP, 'btn'), ext('유튜브 채널', 'https://www.youtube.com/@태성환경연구소', 'btn'))));
-};
-
-/* 종합안내에 대표 영상과 빠른 길 추가 */
-{
-  const f = APP.pages.home;
-  APP.pages.home = sec => {
-    f(sec);
-    const quick = h('div', { class: 'grid2' },
-      h('div', { class: 'card stack' }, h('h3', null, '어떤 일로 오셨나요?'),
-        h('div', { class: 'who' },
-          h('a', { href: '#intake' }, h('b', null, '냄새 때문에 불편해요'), h('span', null, '주민 · 고객: 냄새를 말로 설명하고 원인과 검사를 안내받기')),
-          h('a', { href: '#treatment' }, h('b', null, '사업장 악취를 줄이고 싶어요'), h('span', null, '사업장: 원인 물질에 맞는 방지시설 처방 보기')),
-          h('a', { href: '#monitoring' }, h('b', null, '지금 상황을 확인할게요'), h('span', null, '담당자 · 직원: 측정소 현황, 경보, 원인 역추적')),
-          h('a', { href: '#records' }, h('b', null, '분석 기록을 찾을게요'), h('span', null, '직원: 분석 데이터 · 엑셀을 문장으로 검색')))),
-      h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, '대표 영상'), h('a', { class: 'small', href: '#videos' }, `영상 ${VID.length}개 모두 보기 →`)),
-        h('div', { class: 'vgrid two' }, vids(['T_mptCb0Qq8', 'CvKVecloF1k']).map(vCard)),
-        h('div', { class: 'row' }, ext('온라인 견적 문의', LINKS[0].items[0][1]), ext('분석 의뢰', LINKS[0].items[1][1]), h('a', { class: 'chip', href: '#company' }, '회사 자료 모음'))));
-    sec.insertBefore(quick, sec.children[1]);
+/* ================= 홈페이지 메뉴별 통합 화면 ================= */
+function sectionPage(S) {
+  return sec => {
+    const base = S.vf ? VID.filter(vfn(S.vf)) : [];
+    const st = { item: null, all: false };
+    const grid = h('div', { class: 'vgrid' }), vt = h('h3'), vtools = h('div', { class: 'row' }), more = h('div');
+    const vbox = h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, vt, vtools), grid, more);
+    const drawV = () => {
+      const list = st.item ? VID.filter(vfn(st.item[3])) : base;
+      vt.textContent = st.item ? `‘${st.item[0]}’ 관련 영상 ${list.length}개` : (S.id === 'library' ? `전체 영상 ${list.length}개` : `${S.t} 관련 영상 ${list.length}개`);
+      vtools.innerHTML = '';
+      if (st.item) vtools.append(h('button', { class: 'chip sm', type: 'button', onclick: () => { st.item = null; st.all = false; drawV(); } }, '분야 전체 보기'));
+      vtools.append(h('a', { class: 'small', href: '#videos', onclick: () => { VFILTER.cat = st.item ? '' : S.vc; VFILTER.tag = ''; VFILTER.q = ''; } }, '영상관에서 검색 →'));
+      const cols = grid.clientWidth ? getComputedStyle(grid).gridTemplateColumns.split(' ').length : 4;
+      const show = st.all ? list : list.slice(0, cols >= 4 ? cols * 2 : 6);
+      grid.innerHTML = ''; show.forEach(v => grid.append(vCard(v)));
+      more.innerHTML = '';
+      if (list.length > show.length) more.append(h('button', { class: 'btn', type: 'button', onclick: () => { st.all = true; drawV(); } }, `나머지 ${list.length - show.length}개 더 보기`));
+    };
+    const icard = it => {
+      const f = vfn(it[3]), n = f ? VID.filter(f).length : 0;
+      return h('div', { class: 'icard' }, h('b', null, it[0]), h('p', null, it[2]),
+        it[4] ? h('div', { class: 'row' }, it[4].map(([t, u]) => ext(t, u, 'chip sm'))) : null,
+        h('div', { class: 'row' }, ext('홈페이지에서 보기', it[1], 'chip co sm'),
+          n ? h('button', { class: 'chip sm', type: 'button', onclick: () => { st.item = it; st.all = false; drawV(); vbox.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }, `관련 영상 ${n}`) : null));
+    };
+    sec.append(pageHead(`회사 홈페이지 메뉴 · ${S.t}`, S.h, S.lead, 'co'),
+      S.ai.length ? h('div', { class: 'card stack ai-card' }, h('div', { class: 'card-h' }, h('h3', null, '바로고에서 바로 해 보기'), h('span', { class: 'small muted' }, '홈페이지 메뉴에 바로고가 더한 기능')), h('div', { class: 'tgrid' }, S.ai.map(toolLink))) : null,
+      h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, `홈페이지 ‘${S.t}’ 메뉴 ${S.items.length}개`), ext(`홈페이지 ${S.t}`, S.items[0][1], 'small')), h('div', { class: 'igrid' }, S.items.map(icard))),
+      base.length ? vbox : null);
+    if (base.length) { drawV(); requestAnimationFrame(drawV); }
   };
 }
+SECTIONS.forEach(S => { APP.pages[S.id] = sectionPage(S); });
 
-/* ================= 바로고 도우미 (검색형 챗봇) ================= */
+/* ================= 상단 메뉴 · 모바일 메뉴 · 진료 순서 줄 ================= */
+const MENU = [{ id: 'barogo', t: '바로고 AI 진료', href: '#intake', ai: true }, ...SECTIONS.map(S => ({ id: S.id, t: S.t, href: '#' + S.id, S }))];
+const pageGroup = id => (TOOLS[id] && id !== 'videos') || id === 'data' ? 'barogo' : id === 'videos' ? 'library' : SECI[id] ? id : '';
+function menuLinks(m) {
+  if (m.ai) return [h('div', { class: 'cap' }, '진료 순서'),
+    ...TOOL_ORDER.map(id => h('a', { class: 'own', href: '#' + id }, h('span', { class: 'mono x' }, TOOLS[id].no), TOOLS[id].t)),
+    h('div', { class: 'cap' }, '함께 보기'), h('a', { href: '#videos' }, '영상관'), h('a', { href: '#data' }, '데이터 검증')];
+  const S = m.S;
+  return [h('a', { class: 'all', href: '#' + S.id }, `${S.t} 한눈에 보기`, h('span', { class: 'x' }, '→')),
+    ...S.ai.map(id => h('a', { class: 'own', href: '#' + id }, h('span', { class: 'ai-b' }, id === 'videos' ? 'NEW' : 'AI'), TOOLS[id].t)),
+    h('div', { class: 'cap' }, '홈페이지 메뉴'),
+    ...S.items.map(it => h('a', { href: url(it[1]), target: '_blank', rel: 'noopener' }, it[0], h('span', { class: 'x' }, '↗')))];
+}
+const gnb = $('#gnb'), drawer = $('#drawer'), menuBtn = $('#menuBtn');
+{
+  let hideItem = null;
+  MENU.forEach(m => {
+    const item = h('div', { class: 'gnb-i' + (m.ai ? ' ai' : ''), 'data-g': m.id }, h('a', { href: m.href }, m.t), h('div', { class: 'gnb-d' }, menuLinks(m)));
+    item.addEventListener('mouseenter', () => { if (item !== hideItem) gnb.classList.remove('hide'); });
+    item.addEventListener('click', e => { if (e.target.closest('a')) { hideItem = item; gnb.classList.add('hide'); if (document.activeElement) document.activeElement.blur(); } });
+    gnb.append(item);
+  });
+  gnb.addEventListener('mouseleave', () => { hideItem = null; gnb.classList.remove('hide'); });
+}
+const setDrawer = open => { drawer.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.textContent = open ? '닫기' : '메뉴'; };
+menuBtn.addEventListener('click', () => setDrawer(drawer.hidden));
+drawer.append(h('div', { class: 'dtop' }, h('a', { class: 'btn sm', href: '#home' }, '첫 화면'), h('button', { class: 'btn sm pri', type: 'button', onclick: () => { setDrawer(false); openBot(); } }, '안내봇 열기'), ext('온라인 문의', Q_EST, 'btn sm')),
+  ...MENU.map((m, i) => h('details', { open: i === 0 }, h('summary', null, h('span', null, m.t, m.ai ? h('span', { class: 'ai-b', style: 'margin-left:8px' }, 'AI') : null)), h('div', { class: 'dl' }, menuLinks(m)))));
+drawer.addEventListener('click', e => { if (e.target.closest('a')) setDrawer(false); });
+const PAGE_T = { home: '', data: '데이터 검증', ...Object.fromEntries(Object.entries(TOOLS).map(([k, v]) => [k, v.t])), ...Object.fromEntries(SECTIONS.map(s => [s.id, s.t])) };
+function updateNav(id) {
+  const g = pageGroup(id);
+  $$('#gnb .gnb-i').forEach(e => e.classList.toggle('on', e.dataset.g === g));
+  const flow = $('#flow'); flow.innerHTML = '';
+  if (g === 'barogo') {
+    const a = (pid, no, t) => h('a', { href: '#' + pid, class: pid === id ? 'on' : null, 'aria-current': pid === id ? 'page' : null }, h('span', { class: 'no' }, no), t);
+    const bar = h('nav', { class: 'flow', 'aria-label': '진료 순서' });
+    TOOL_ORDER.slice(0, 5).forEach((pid, i) => { if (i) bar.append(h('span', { class: 'sep', 'aria-hidden': 'true' }, '›')); bar.append(a(pid, TOOLS[pid].no, TOOLS[pid].t)); });
+    bar.append(h('span', { class: 'gap' }), a('records', 'EMR', '전자차트'), a('data', 'QA', '데이터 검증'));
+    flow.append(bar);
+    const on = bar.querySelector('.on'); if (on) bar.scrollLeft = Math.max(0, on.offsetLeft - 40);
+  }
+  setDrawer(false);
+  document.title = (PAGE_T[id] ? PAGE_T[id] + ' | ' : '') + '바로고시스템 (악취종합병원)';
+}
+$('#skip').addEventListener('click', () => $('#main').focus());
+
+/* ================= 안내봇 ================= */
+const GUIDE = {
+  start: { t: '안녕하세요, 바로고 안내봇이에요. 어떤 일로 오셨는지 고르면 이용 순서를 알려 드릴게요. 궁금한 것을 바로 입력하셔도 돼요.',
+    o: [['냄새 때문에 불편해요', 'resident'], ['사업장 악취를 줄이고 싶어요', 'site'], ['지역 악취 · 민원을 관리해요', 'gov'], ['태성환경연구소 직원이에요', 'staff'], ['처음이라 둘러볼게요', 'tour']] },
+  resident: { t: '생활 속 냄새로 불편하시군요. 이 순서로 이용해 보세요.',
+    steps: [['intake', '접수 · 문진', '어떤 냄새인지 말로 적으면 냄새 유형과 의심 물질, 냄새가 올 만한 방향을 알려 드려요'], ['monitoring', '관리센터', '가까운 측정소의 지금 상태와 최근 경보를 확인해요'], ['forecast', '예측센터', '앞으로 24시간 언제 냄새가 날지 미리 봐요']],
+    a: () => [ext('온라인 문의 게시판', '/inquiry')] },
+  site: { t: '사업장 담당자시군요. 원인을 알아야 처방이 정확해요.',
+    steps: [['diagnosis', '진단센터', '분석 성적서의 22종 농도를 넣으면 원인 물질과 기준 초과를 판정해요'], ['treatment', '해결센터', '원인 물질에 맞는 방지시설 조합과 개략 규모를 처방해요'], ['engineering', '엔지니어링 메뉴', '설계 · 시공 사례와 실적, 관련 영상을 확인해요'], ['support', '견적 문의 · 분석 의뢰', '회사 접수 화면으로 바로 연결돼요']],
+    v: ['m0qDXr-THUA', 'XaD_EFCeUhU'] },
+  gov: { t: '지역 악취를 관리하시는군요. 감시부터 원인 추적까지 이렇게 보세요.',
+    steps: [['monitoring', '관리센터', '측정소 현황과 경보 이력, 원인 사업장 역추적을 봐요'], ['forecast', '예측센터', '기상 조건별 악취 예보로 순찰 시간을 정해요'], ['management', '악취통합관리 메뉴', '감시차량 · 드론 · 관제시스템 소개와 영상을 확인해요']],
+    v: ['pUGMy1kA2vw', 'sKYc-0TMLW8'] },
+  staff: { t: '직원용으로는 이 화면들이 빠릅니다.',
+    steps: [['records', '전자차트', '분석 기록과 엑셀을 문장으로 검색해요'], ['monitoring', '관리센터', '경보가 난 시점의 원인 후보를 확인해요'], ['videos', '영상관', '고객 설명에 쓸 영상을 분야별로 찾아요'], ['data', '데이터 검증', '시연 데이터의 근거와 AI 정확도를 확인해요']] },
+  tour: { t: '처음이시라면 대표 영상을 먼저 보고, 회사소개와 영상관을 둘러보세요.',
+    steps: [['about', '회사소개', '연혁, 특허 · 인증, 회사 둘러보기'], ['videos', '영상관', `영상 ${VID.length}개를 분야별로 보기`], ['intake', '접수 · 문진', 'AI 진료를 직접 체험하기']],
+    v: ['T_mptCb0Qq8', 'CvKVecloF1k'] },
+};
 const BOT_NAV = [
-  [/견적|문의|의뢰|상담|비용|가격|얼마/, () => ({ t: '견적과 분석 의뢰는 회사 홈페이지에서 바로 접수할 수 있어요. 전화는 울산 본사 052-247-8691입니다.', a: [ext('온라인 문의(견적)', LINKS[0].items[0][1]), ext('분석 의뢰', LINKS[0].items[1][1])] })],
-  [/위치|주소|전화|연락처|오시는|어디에 있/, () => ({ t: '울산 본사는 울주군 온산읍 회학3길 56-20(학남국가산업단지), 대표전화 052-247-8691이에요. 인천분석센터는 송도미래로 30 스마트밸리 E동, 032-213-8691입니다.', a: [h('a', { class: 'chip', href: '#company' }, '회사 자료 보기')] })],
+  [/이용 ?방법|사용법|어떻게 (써|이용|사용)|도움말|뭘 할 수|무엇을 할 수|처음/, () => ({ guide: 'start' })],
+  [/견적|문의|의뢰|상담|비용|가격|얼마/, () => ({ t: '견적과 분석 의뢰는 회사 접수 화면으로 바로 연결돼요. 전화는 울산 본사 052-247-8691입니다.', a: [ext('온라인 문의(견적)', Q_EST), ext('분석 의뢰', Q_REQ)] })],
+  [/위치|주소|전화|연락처|오시는|어디에 있/, () => ({ t: '울산 본사는 울주군 온산읍 회학3길 56-20(학남국가산업단지), 대표전화 052-247-8691이에요. 인천분석센터는 송도미래로 30 스마트밸리 E동, 032-213-8691입니다.', a: [h('a', { class: 'chip', href: '#about' }, '회사소개 보기')] })],
   [/예보|예측|내일|언제 냄새/, () => ({ t: `앞으로 24시간 가장 높은 예보는 ${STN[TOM.best.j].name} ${tf(TOM.rows[TOM.best.i].ms)} ${f1(TOM.best.v)}배(${lvl(TOM.best.v).t})예요.`, a: [h('a', { class: 'chip', href: '#forecast' }, '예측센터 열기')], v: vids(['3a22gD0nQwo']) })],
-  [/모니터링|관제|현재|지금 상황|측정소|민원|역추적|경보/, () => { const hot = STN.map(s => ({ s, v: MON.st[s.code].ou[nowIdx] })).sort((a, b) => b.v - a.v)[0]; return { t: `지금 가장 높은 곳은 ${hot.s.name} ${f1(hot.v)}배(${lvl(hot.v).t})예요. 관리센터에서 경보 이력과 원인 사업장 역추적을 볼 수 있어요.`, a: [h('a', { class: 'chip', href: '#monitoring' }, '관리센터 열기')], v: vids(['Nv_6FU_roMQ']) }; }],
-  [/처방|방지시설|스크러버|세정탑|설계|시공|바이오필터|rto|저감/i, () => ({ t: '해결센터에서 원인 물질에 맞는 방지시설 조합과 개략 규모를 처방해 드려요.', a: [h('a', { class: 'chip', href: '#treatment' }, '해결센터 열기'), ext('엔지니어링 실적', HP + '/consulting')], v: vids(['m0qDXr-THUA', 'XaD_EFCeUhU']) })],
-  [/분석값|지문|기여율|성적서|22종|지정악취|복합악취/, () => ({ t: '진단센터에서 22종 분석값으로 배출원 업종을 판독하고 기준 초과 여부를 판정해요.', a: [h('a', { class: 'chip', href: '#diagnosis' }, '진단센터 열기')], v: vids(['OCy9s_6FR1Y']) })],
+  [/모니터링|관제|현재|지금 상황|측정소|민원|역추적|경보/, () => { const hot = STN.map(s => ({ s, v: MON.st[s.code].ou[nowIdx] })).sort((a, b) => b.v - a.v)[0]; return { t: `지금 가장 높은 곳은 ${hot.s.name} ${f1(hot.v)}배(${lvl(hot.v).t})예요. 관리센터에서 경보 이력과 원인 사업장 역추적을 볼 수 있어요.`, a: [h('a', { class: 'chip', href: '#monitoring' }, '관리센터 열기'), h('a', { class: 'chip', href: '#management' }, '악취통합관리 메뉴')], v: vids(['Nv_6FU_roMQ']) }; }],
+  [/처방|방지시설|스크러버|세정탑|설계|시공|바이오필터|rto|저감/i, () => ({ t: '해결센터에서 원인 물질에 맞는 방지시설 조합과 개략 규모를 처방해 드려요.', a: [h('a', { class: 'chip', href: '#treatment' }, '해결센터 열기'), h('a', { class: 'chip', href: '#engineering' }, '엔지니어링 메뉴')], v: vids(['m0qDXr-THUA', 'XaD_EFCeUhU']) })],
+  [/분석값|지문|기여율|성적서|22종|지정악취|복합악취/, () => ({ t: '진단센터에서 22종 분석값으로 배출원 업종을 판독하고 기준 초과 여부를 판정해요.', a: [h('a', { class: 'chip', href: '#diagnosis' }, '진단센터 열기'), h('a', { class: 'chip', href: '#analysis' }, '환경분석 메뉴')], v: vids(['OCy9s_6FR1Y']) })],
   [/엑셀|데이터|기록|차트|검색/, () => ({ t: '전자차트에서 “작년 여름 하수처리장 황화수소 최고”처럼 문장으로 찾을 수 있고, 엑셀 파일을 올려 함께 검색할 수 있어요.', a: [h('a', { class: 'chip', href: '#records' }, '전자차트 열기')] })],
-  [/회사|연혁|인증|특허|소개|채용/, () => ({ t: '회사 홈페이지의 메뉴를 진료 흐름대로 모아 두었어요.', a: [h('a', { class: 'chip', href: '#company' }, '회사 자료 보기'), ext('회사소개', HP + '/outline'), ext('특허·인증', HP + '/certification')], v: vids(['6Qw3GnLOj8g']) })],
+  [/회사|연혁|인증|특허|소개|채용/, () => ({ t: '회사소개 메뉴에 개요, 연혁, 특허 · 인증, 회사 둘러보기를 모아 두었어요.', a: [h('a', { class: 'chip', href: '#about' }, '회사소개 보기'), ext('연혁', '/history'), ext('특허·인증', '/certification')], v: vids(['6Qw3GnLOj8g']) })],
+  [/센서|반도체|전자코|로봇/, () => ({ t: '센서와 반도체 기술은 반도체 메뉴에 모여 있어요.', a: [h('a', { class: 'chip', href: '#semi' }, '반도체 메뉴 보기')], v: vids(['ETGnnTehGkQ', 'wXGQRT6jqgA']) })],
+  [/탄소|열분해|수소|mbss|마이크로 ?버블/i, () => ({ t: '탄소중립 메뉴에서 열분해, 마이크로버블 스크러버(MBSS)를 볼 수 있어요.', a: [h('a', { class: 'chip', href: '#carbon' }, '탄소중립 메뉴 보기')], v: vids(['XaD_EFCeUhU']) })],
 ];
 const BOT_STOP = /^(영상|동영상|보여줘|보여|알려줘|알려|관련|있어|있나요|찾아줘|찾아|좀|대해|어떻게|뭐야|냄새|악취|태성|해줘|주세요)$/;
 function searchVideos(text, n = 3) {
@@ -1530,47 +1777,123 @@ function searchVideos(text, n = 3) {
   return VID.map(v => ({ v, s: words.filter(w => v.t.toLowerCase().includes(w)).length + (v.g === 'en' ? -0.5 : 0) })).filter(x => x.s >= 1).sort((a, b) => b.s - a.s).slice(0, n).map(x => x.v);
 }
 function botReply(text) {
-  const wantsVideo = /영상|동영상|유튜브/.test(text);
-  if (wantsVideo) {
+  if (/영상|동영상|유튜브/.test(text)) {
     const vs = searchVideos(text);
     if (vs.length) return { t: `관련 영상 ${vs.length}개를 찾았어요. 누르면 바로 재생돼요.`, v: vs, a: [h('a', { class: 'chip', href: '#videos' }, '영상관 열기')] };
     return { t: '제목이 맞는 영상을 찾지 못했어요. 영상관에서 분류별로 둘러보세요.', a: [h('a', { class: 'chip', href: '#videos' }, '영상관 열기')] };
   }
   const odor = analyzeText(text).find(r => r.hits.length);
   if (odor && /냄새|악취|내가|내 |나요|나는|같은/.test(text)) {
-    return { t: `${odor.t.nm}(${odor.t.ex})으로 보여요.${odor.t.cmp.length ? ' 의심 물질은 ' + odor.t.cmp.slice(0, 3).map(c => CMP[CI[c]].kr).join(', ') + '예요.' : ''} 접수·문진에서 사는 곳과 바람까지 넣어 자세히 볼 수 있어요.`,
+    return { t: `${odor.t.nm}(${odor.t.ex})으로 보여요.${odor.t.cmp.length ? ' 의심 물질은 ' + odor.t.cmp.slice(0, 3).map(c => CMP[CI[c]].kr).join(', ') + '예요.' : ''} 접수 · 문진에서 사는 곳과 바람까지 넣어 자세히 볼 수 있어요.`,
       a: [h('button', { class: 'chip', type: 'button', onclick: () => { nav('intake'); setTimeout(() => { const ta = $('#in-text'); if (ta) { ta.value = text; $('#in-run').click(); } }, 60); } }, '이 내용으로 문진하기')], v: vidsForType(odor.t.id, 2) };
   }
   for (const [re, fn] of BOT_NAV) if (re.test(text)) return fn();
   const vs = searchVideos(text);
-  const pages = LINKS.flatMap(L => L.items).filter(([t]) => text.replace(/\s/g, '').includes(t.replace(/[\s·()]/g, '').slice(0, 4)));
-  if (vs.length || pages.length) return { t: '사이트 안 자료에서 이런 것을 찾았어요.', v: vs, a: pages.slice(0, 3).map(([t, u]) => ext(t, u)) };
-  return { t: '아직 그 질문은 답을 찾지 못했어요. 냄새를 설명해 주시거나(예: “하수구 냄새가 나요”), 아래에서 골라 보세요.', a: ['견적 문의', '축사 악취 영상', '지금 측정소 상황', '악취 예보'].map(x => h('button', { class: 'chip', type: 'button', onclick: () => botAsk(x) }, x)) };
+  const flat = text.replace(/\s/g, '');
+  const pages = SECTIONS.flatMap(S => S.items).filter(it => flat.includes(it[0].replace(/[\s·()\/_]/g, '').slice(0, 4)));
+  if (vs.length || pages.length) return { t: '사이트 안 자료에서 이런 것을 찾았어요.', v: vs, a: pages.slice(0, 3).map(it => ext(it[0], it[1])) };
+  return { t: '아직 그 질문은 답을 찾지 못했어요. 냄새를 설명해 주시거나(예: “하수구 냄새가 나요”), 아래에서 골라 보세요.', q: ['이용 방법 알려줘', '견적 문의', '축사 악취 영상', '지금 측정소 상황'] };
 }
-let botLog;
-function botSay(who, r) {
-  const b = h('div', { class: 'msg ' + who }, h('div', { class: 'bubble' }, typeof r === 'string' ? r : r.t,
-    r.v && r.v.length ? h('div', { class: 'vgrid two', style: 'margin-top:8px' }, r.v.map(vCard)) : null,
-    r.a && r.a.length ? h('div', { class: 'row', style: 'margin-top:8px' }, r.a) : null));
-  botLog.append(b); botLog.scrollTop = botLog.scrollHeight;
+function makeBot(log) {
+  const bot = {};
+  bot.say = (who, r) => {
+    if (typeof r === 'string') r = { t: r };
+    const m = h('div', { class: 'msg ' + who }, h('div', { class: 'bubble' }, r.t,
+      r.steps ? h('ol', { class: 'steps' }, r.steps.map(([id, t, d]) => h('li', null, h('a', { href: '#' + id }, h('div', null, h('b', null, t), h('span', null, d)))))) : null,
+      r.v && r.v.length ? h('div', { class: 'vgrid two', style: 'margin-top:8px' }, r.v.map(v => vCard(v))) : null,
+      r.a && r.a.length ? h('div', { class: 'row', style: 'margin-top:8px' }, r.a) : null,
+      r.o ? h('div', { class: 'row', style: 'margin-top:8px' }, r.o.map(([t, k]) => h('button', { class: 'chip', type: 'button', onclick: () => { bot.say('me', t); bot.guide(k); } }, t))) : null,
+      r.q ? h('div', { class: 'row', style: 'margin-top:8px' }, r.q.map(t => h('button', { class: 'chip', type: 'button', onclick: () => bot.ask(t) }, t))) : null));
+    log.append(m);
+    log.scrollTop = who === 'bot' ? Math.max(0, m.offsetTop - 10) : log.scrollHeight;
+  };
+  bot.guide = k => { const g = GUIDE[k]; bot.say('bot', { t: g.t, steps: g.steps, v: g.v ? vids(g.v) : null, a: g.a ? g.a() : null, o: g.o || [['다른 안내 보기', 'start']] }); };
+  bot.ask = text => { text = text.trim(); if (!text) return; bot.say('me', text); const r = botReply(text); if (r.guide) bot.guide(r.guide); else bot.say('bot', r); };
+  return bot;
 }
-function botAsk(text) { text = text.trim(); if (!text) return; botSay('me', text); botSay('bot', botReply(text)); }
-{
-  botLog = h('div', { class: 'chat-log', 'aria-live': 'polite' });
-  const inp = h('input', { type: 'text', id: 'chat-in', placeholder: '예: 하수구 냄새가 나요 / 스크러버 영상', 'aria-label': '도우미에게 질문' });
-  const send = () => { botAsk(inp.value); inp.value = ''; };
+function botUI(idPrefix) {
+  const log = h('div', { class: 'chat-log', 'aria-live': 'polite' });
+  const inp = h('input', { type: 'text', id: idPrefix + '-in', placeholder: '예: 하수구 냄새가 나요 / 스크러버 영상', 'aria-label': '안내봇에게 질문' });
+  const bot = makeBot(log);
+  const send = () => { bot.ask(inp.value); inp.value = ''; };
   inp.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
-  const panel = h('div', { class: 'chat', id: 'chat', hidden: true },
-    h('div', { class: 'chat-h' }, h('span', null, h('b', null, '바로고 도우미'), h('br'), h('span', { class: 'tiny' }, '사이트 안 자료에서 찾아 답하는 검색형 챗봇')), h('button', { class: 'btn sm', type: 'button', onclick: () => { panel.hidden = true; } }, '닫기')),
-    botLog, h('div', { class: 'chat-f' }, inp, h('button', { class: 'btn pri', type: 'button', onclick: send }, '보내기')));
-  const fab = h('button', { class: 'chat-fab', type: 'button', 'aria-label': '바로고 도우미 열기', onclick: () => { panel.hidden = !panel.hidden; if (!panel.hidden) inp.focus(); } }, '도우미에게 묻기');
-  document.body.append(panel, fab);
-  botSay('bot', { t: '안녕하세요, 바로고 도우미예요. 냄새를 설명하시거나 찾는 것을 말씀해 주세요.', a: ['하수구 냄새가 나요', '견적 문의', '축사 악취 영상', '악취 예보'].map(x => h('button', { class: 'chip', type: 'button', onclick: () => botAsk(x) }, x)) });
-  window.addEventListener('hashchange', () => { if (innerWidth < 700) panel.hidden = true; });
+  const foot = h('div', { class: 'chat-f' }, inp, h('button', { class: 'btn pri', type: 'button', onclick: send }, '보내기'));
+  return { log, inp, foot, bot };
 }
+const FB = botUI('chat');
+const chatPanel = h('div', { class: 'chat', id: 'chat', hidden: true, role: 'dialog', 'aria-label': '바로고 안내봇' },
+  h('div', { class: 'chat-h' }, h('span', null, h('b', null, '바로고 안내봇'), h('br'), h('span', { class: 'tiny' }, '이용 순서 안내 · 사이트 안 자료 검색')), h('button', { class: 'btn sm', type: 'button', onclick: () => { chatPanel.hidden = true; } }, '닫기')),
+  FB.log, FB.foot);
+const chatFab = h('button', { class: 'chat-fab', type: 'button', 'aria-label': '바로고 안내봇 열기', onclick: () => { chatPanel.hidden ? openBot() : (chatPanel.hidden = true); } }, '안내봇');
+function openBot() { chatPanel.hidden = false; FB.inp.focus(); }
+document.body.append(chatPanel, chatFab);
+FB.bot.guide('start');
+window.addEventListener('hashchange', () => { if (innerWidth < 700) chatPanel.hidden = true; });
+
+/* ================= 첫 화면: 소개 · 이용 안내 · 안내봇 ================= */
+APP.pages.home = sec => {
+  const cur = Object.fromEntries(STN.map(s => [s.code, MON.st[s.code].ou[nowIdx]]));
+  const lvCount = { good: 0, warn: 0, serious: 0, critical: 0 };
+  Object.values(cur).forEach(v => lvCount[lvl(v).k]++);
+  const b = TOM.best, bst = STN[b.j];
+  const stat = (n, t) => h('div', null, h('b', null, n), h('span', null, t));
+  const IB = botUI('home');
+  const botBox = h('div', { class: 'bot-inline' }, IB.log, IB.foot);
+  const how = (t, d) => h('li', null, h('div', null, h('b', null, t), h('span', null, d)));
+  const steps = [
+    ['01', '접수 · 문진', 'intake', '말로 설명한 냄새에서 의심 물질과 필요한 검사, 바람 기준 의심 사업장을 찾습니다.', h('span', null, '냄새 유형 ', h('b', null, ODOR_TYPES.length), '종')],
+    ['02', '진단', 'diagnosis', '22종 분석값의 구성비(악취지문)로 배출원 업종을 판독하고 기준 초과를 판정합니다.', h('span', null, '미지 시료 정확도 ', h('b', null, pct(D.clf.te_acc, 0)))],
+    ['03', '해결', 'treatment', '원인 물질의 성질에 맞춰 세정 · 마이크로버블 · 바이오필터 · RTO 조합과 규모를 처방합니다.', h('span', null, '설계 · 시공 영상 ', h('b', null, VID.filter(v => v.c === 'S').length), '개 연결')],
+    ['04', '예측', 'forecast', '과거 1년의 유사 기상 사례로 측정소별 악취를 시간 단위로 예보합니다.', h('span', null, '24시간 내 최고 ', h('b', null, f1(b.v)), `배 · ${bst.code}`)],
+    ['05', '관리 · 관제', 'monitoring', '측정소 6곳을 감시하고, 풍향과 센서 성분비로 원인 사업장을 역추적합니다.', h('span', null, '주의 이상 ', h('b', null, lvCount.serious + lvCount.critical), '곳 · 관심 ', h('b', null, lvCount.warn), '곳')],
+  ];
+  sec.append(
+    h('div', { class: 'hero2' },
+      h('div', { class: 'stack' },
+        h('div', { class: 'eyebrow' }, '태성환경연구소 · 악취종합병원'),
+        h('h1', null, '악취의 원인 규명부터 ', h('em', null, ['진단 ·', '설계 ·', '시공 ·', '모니터링 ·'].flatMap(t => [h('span', { class: 'nb' }, t), ' '])), h('span', { class: 'nb' }, h('em', null, '관제'), '까지,'), ' 한곳에서'),
+        h('p', { class: 'lead' }, `바로고시스템은 태성환경연구소 홈페이지의 메뉴와 유튜브 영상 ${VID.length}개를 그대로 담고, 그 위에 AI 진료 기능을 더한 통합 웹 플랫폼입니다. 고객은 냄새를 설명해 원인과 해결책을 안내받고, 직원은 현황과 기록을 바로 찾습니다.`),
+        h('div', { class: 'row' },
+          h('button', { class: 'btn pri lg', type: 'button', onclick: () => { botBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); IB.inp.focus({ preventScroll: true }); } }, '안내봇과 시작하기'),
+          h('a', { class: 'btn lg', href: '#intake' }, '냄새 상담 바로 하기'),
+          ext('온라인 견적 문의', Q_EST, 'btn lg')),
+        h('div', { class: 'stats' }, stat('1997', '년 설립'), stat('KOLAS', '국제공인시험기관'), stat(VID.length, '개 영상 연결'), stat(N_ITEMS, '개 홈페이지 메뉴 연결'), stat(TOOL_ORDER.length, '가지 AI 기능'))),
+      h('div', { class: 'stack' }, vCard(VIDI['T_mptCb0Qq8'], true), h('p', { class: 'small muted' }, '대표 영상을 누르면 이 화면에서 바로 재생됩니다.'))),
+    h('div', { class: 'grid2' },
+      h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h2', null, '안내봇에게 물어보세요'), h('span', { class: 'small muted' }, '방문 목적을 고르면 이용 순서를 알려 드려요')), botBox),
+      h('div', { class: 'card stack' }, h('h2', null, '이용 방법'),
+        h('ol', { class: 'how' },
+          how('필요한 것을 고르거나 말하기', '안내봇에서 방문 목적을 고르거나, 상단 메뉴에서 찾는 항목을 누릅니다. 상단 메뉴는 회사 홈페이지와 같은 순서입니다.'),
+          how('AI 진료 받기', '초록색 AI 표시가 붙은 기능이 바로고가 새로 더한 것입니다. 접수 · 문진 → 진단 → 해결 → 예측 → 관리 순서로 이어집니다.'),
+          how('영상과 회사 자료로 확인하기', '각 화면 아래에 관련 영상과 홈페이지 메뉴가 함께 나옵니다. 영상은 이 사이트 안에서 바로 재생됩니다.'),
+          how('문의 · 의뢰하기', '견적 문의와 분석 의뢰는 회사 접수 화면으로 바로 연결됩니다.')),
+        h('p', { class: 'small muted' }, '안내봇은 모든 화면 오른쪽 아래의 ‘안내봇’ 버튼으로 다시 열 수 있습니다. PC · 태블릿 · 휴대폰에서 같은 주소로 이용합니다.'))),
+    h('div', { class: 'sec-h' }, h('h2', null, h('span', { class: 'ai-b', style: 'margin-right:8px;font-size:13px' }, 'AI'), '바로고 AI 진료'), h('p', null, '병원처럼 순서대로 이용하거나 필요한 단계만 골라 쓸 수 있습니다')),
+    h('div', { class: 'journey' }, steps.map(([no, nm, id, what, live]) => h('a', { class: 'jstep', href: '#' + id }, h('span', { class: 'no' }, no), h('span', { class: 'nm' }, nm), h('span', { class: 'what' }, what), h('span', { class: 'live' }, live)))),
+    h('a', { class: 'emr-bar', href: '#records' }, h('b', null, '전자차트'), h('span', { style: 'flex:1 1 300px' }, `분석 기록 ${REC.length}건을 “작년 여름 하수처리장 황화수소 가장 높았던 날”처럼 말로 검색하고, 엑셀 파일을 올려 함께 찾을 수 있습니다.`), h('span', { class: 'faint' }, '→')),
+    h('div', { class: 'sec-h' }, h('h2', null, '사업 분야와 회사 자료'), h('p', null, `회사 홈페이지의 8개 메뉴에 관련 영상과 AI 기능을 함께 묶었습니다`)),
+    h('div', { class: 'sgrid' }, SECTIONS.map(S => { const n = S.vf && S.id !== 'library' ? VID.filter(vfn(S.vf)).length : S.id === 'library' ? VID.length : 0;
+      return h('a', { class: 'scard', href: '#' + S.id }, h('b', null, S.t), h('span', { class: 'd' }, S.h), h('span', { class: 'm' }, `메뉴 ${S.items.length}`, n ? ` · 영상 ${n}` : '', S.ai.length ? h('span', { class: 'ai-b' }, 'AI ' + S.ai.length) : null)); })),
+    h('div', { class: 'card stack' }, h('div', { class: 'card-h' }, h('h3', null, '새로 올라온 영상'), h('a', { class: 'small', href: '#videos', onclick: () => { VFILTER.cat = ''; VFILTER.tag = ''; VFILTER.q = ''; } }, `영상 ${VID.length}개 모두 보기 →`)),
+      h('div', { class: 'vgrid four' }, vids(['4XyuvEA8C1k', 'PO7REfpXxOM', 'vq2-MdIsaiE', 'Gjj9nQOJdvY']).map(v => vCard(v)))),
+    h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,7fr) minmax(0,5fr)' },
+      h('div', { class: 'card' },
+        h('div', { class: 'card-h' }, h('h3', null, '지금 측정 현황'), h('span', { class: 'small faint mono' }, '시연 데이터 · ' + tf(NOW, 'full'))),
+        drawMap({ vals: cur, wind: { wd: MON.wd[nowIdx], ws: MON.ws[nowIdx] }, onSt: c => { APP.monSel = c; nav('monitoring'); } }),
+        h('p', { class: 'small muted', style: 'margin-top:8px' }, '원은 측정소(색 = 악취 단계), 사각형은 사업장입니다. 측정소를 누르면 관리센터로 이동합니다.')),
+      h('div', { class: 'card stack' },
+        h('h3', null, '측정소별 현재 값'),
+        h('div', { class: 'tbl-wrap' }, h('table', null,
+          h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '복합악취(배)'), h('th', null, '단계'))),
+          h('tbody', null, STN.map(st => h('tr', { class: 'click', onclick: () => { APP.monSel = st.code; nav('monitoring'); } },
+            h('td', null, h('b', null, st.code), ' ', st.name), h('td', { class: 'r mono' }, f1(cur[st.code])), h('td', null, lvTag(cur[st.code]))))))),
+        h('div', { class: 'note' }, `AI 기능 검증 — 악취지문 판독: 미지 시료 ${D.clf.n_te}건 중 ${pct(D.clf.te_acc, 0)} 정답 · 악취 예보: 시간대 평균 대비 평균오차 ${pct(1 - sum(FC.mae) / sum(FC.mae_base), 0)} 감소 · 원인 역추적: 1순위 적중 ${pct(D.bt.top1, 0)}(무작위 13%) · `, h('a', { href: '#data' }, '검증 자세히 보기')))),
+    h('div', { class: 'emr-bar', style: 'background:var(--brand-soft);border-color:var(--brand-line)' }, h('b', { style: 'color:var(--brand)' }, '문의'), h('span', { style: 'flex:1 1 260px' }, '견적 · 분석 문의 052-247-8691 (울산 본사) · 032-213-8691 (인천분석센터)'), ext('온라인 문의(견적)', Q_EST, 'chip co'), ext('분석 의뢰', Q_REQ, 'chip co'), ext('카탈로그', '/catalog', 'chip co')));
+  IB.bot.guide('start');
+};
 
 /* ================= 시작 ================= */
-$('#nowTag').textContent = `시연 데이터 기준 ${tf(NOW, 'full')}`;
+$('#nowTag').append(h('span', { class: 'n-long' }, `측정 · 분석값은 가상 시연 데이터입니다(기준 ${tf(NOW, 'full')}). 메뉴 구성 · 영상 · 홈페이지 링크는 회사의 실제 자료입니다.`), h('span', { class: 'n-short' }, '측정값은 가상 시연 데이터 · 메뉴와 영상은 실제 자료'));
 window.addEventListener('hashchange', go);
 go();
 

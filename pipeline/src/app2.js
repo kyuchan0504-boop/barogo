@@ -96,7 +96,7 @@ function renderIntake(out, outB, txt, areaCode, when) {
             outside ? h('tr', null, h('td', { colspan: 3 }, known ? '+ 지정악취물질 22종 밖의 물질 가능성' : '특정하지 않음 — 22종 전체와 그 밖의 성분까지 분석')) : null)))),
       h('div', { class: 'card stack' }, h('h3', null, '추천 검사'),
         h('ul', { style: 'margin:0;padding-left:18px;display:grid;gap:4px' }, h('li', null, '복합악취: 공기희석관능법(부지경계선·민원 지점)'), tests.map(t => h('li', null, t))),
-        h('p', { class: 'small muted' }, '현장 포집 후 진단센터에서 지정악취물질 22종 분석값으로 냄새 지문을 판독합니다.'))));
+        h('p', { class: 'small muted' }, '현장 포집 후 진단센터에서 지정악취물질 22종 분석값으로 악취지문을 판독합니다.'))));
   outB.append(
     h('div', { class: 'card stack' },
       h('div', { class: 'card-h' }, h('h3', null, known ? '지금 바람 기준 의심 사업장' : '바람 방향·거리만으로 본 후보 사업장'), h('span', { class: 'small faint mono' }, `${tf(NOW, 'full')} · ${dirName(wd)}풍 ${f1(ws)} m/s · ${st.code} 현재 ${f1(curOu)}배`)),
@@ -129,7 +129,7 @@ APP.pages.diagnosis = sec => {
     h('optgroup', { label: '전자차트 기록 (학습에 사용)' },
       REC.filter(r => !TEST.has(r.id)).slice().reverse().map(r => h('option', { value: r.id }, `${r.id} · ${SITE[r.s].name} · ${r.p} · ${r.ts.slice(0, 10)}`))));
   const left = h('div', { class: 'card stack' }), right = h('div', { class: 'stack' });
-  sec.append(pageHead('02 진단센터', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘냄새 지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
+  sec.append(pageHead('02 진단센터', '분석값으로 냄새의 지문을 읽습니다', '지정악취물질 22종의 농도를 최소감지농도로 나눠 냄새 세기(OAV)로 바꾸고, 물질 간 구성비를 ‘악취지문’으로 삼아 배출원 업종을 판독합니다. 미지 시료는 출처를 가린 채 먼저 AI가 맞히고, 정답을 확인할 수 있습니다.'),
     h('div', { class: 'split' }, left, right));
   const draw = () => { sel.value = DG.rec.id; renderDiagLeft(left, sel, draw); renderDiagRight(right, draw); };
   sel.addEventListener('change', () => { diagLoad(sel.value); draw(); });
@@ -167,7 +167,7 @@ function renderDiagRight(box, redraw) {
   box.innerHTML = '';
   box.append(
     h('div', { class: 'card stack' },
-      h('div', { class: 'card-h' }, h('h3', null, 'AI 냄새 지문 판독'), h('span', { class: 'small faint' }, '다항 로지스틱 회귀 · 22개 물질 구성비')),
+      h('div', { class: 'card-h' }, h('h3', null, 'AI 악취지문 판독'), h('span', { class: 'small faint' }, '다항 로지스틱 회귀 · 22개 물질 구성비')),
       h('div', { class: 'answer' }, '가장 가능성 높은 배출원 업종은 ', h('b', null, `${CLS[cl.top].kr} (${pP(cl.p[cl.top])})`), '입니다.'),
       barList(CLS.map((k, j) => ({ label: k.kr, value: cl.p[j], display: pP(cl.p[j]), top: j === cl.top })).sort((a, b) => b.value - a.value), { max: 1 }),
       h('div', { class: 'row small' }, h('span', { class: 'muted' }, '판단 근거:'), cl.why.slice(0, 3).map(w => h('span', { class: 'tag' }, `${CMP[w.i].kr} 비중 ${cl.z[w.i] > 0 ? '높음' : '낮음'}`))),
@@ -190,7 +190,7 @@ function renderDiagRight(box, redraw) {
           : h('p', { class: 'small muted' }, '배출구 시료는 복합악취 배출구 기준으로 판정합니다. 지정악취물질 기준은 부지경계선에 적용됩니다.'),
         h('p', { class: 'tiny faint' }, `예상식: log₁₀(희석배수) = ${D.reg[r.p].a} + ${D.reg[r.p].b}·log₁₀(ΣOAV+1), 과거 ${D.reg[r.p].n}건 회귀(r=${D.reg[r.p].r})`))),
     h('div', { class: 'card stack' },
-      h('h3', null, '유사한 과거 사례 (냄새 지문 유사도)'),
+      h('h3', null, '유사한 과거 사례 (악취지문 유사도)'),
       h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, '시료번호'), h('th', null, '일시'), h('th', null, '사업장'), h('th', null, '지점'), h('th', { class: 'r' }, '유사도'))),
         h('tbody', null, similar(cl.z, r.id).map(({ r: q, s }) => h('tr', { class: 'click', onclick: () => { diagLoad(q.id); redraw(); } },
           h('td', { class: 'mono' }, q.id), h('td', { class: 'mono' }, q.ts.slice(0, 10)), h('td', null, (TEST.has(q.id) ? '(비공개) ' : '') + (TEST.has(q.id) ? CLSN[SITE[q.s].cls] + ' 추정' : SITE[q.s].name)), h('td', null, q.p), h('td', { class: 'r mono' }, pct(s))))))),

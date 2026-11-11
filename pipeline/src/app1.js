@@ -96,7 +96,7 @@ function showTip(e, html) {
 const hideTip = () => tip.classList.remove('on');
 
 /* ================= AI 모델 ================= */
-// 1) 냄새 지문 판별 (다항 로지스틱 회귀)
+// 1) 악취지문 판별 (다항 로지스틱 회귀)
 function featVec(c) {
   const x = c.map((v, i) => Math.log10(Math.max(v, CMP[i].mdl / 2) / CMP[i].thr));
   const m = sum(x) / NC;
@@ -309,11 +309,11 @@ function go() {
     $('#main').append(sec); APP.built[id] = sec; APP.pages[id](sec);
   } else if (APP.upd[id]) APP.upd[id]();
   $$('section.page').forEach(s => s.classList.toggle('on', s === APP.built[id]));
-  $$('nav.dir a').forEach(a => { const on = a.dataset.p === id; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  updateNav(id);
   hideTip();
 }
 function nav(id) { if (location.hash === '#' + id) go(); else location.hash = id; window.scrollTo({ top: 0 }); }
-const pageHead = (eyebrow, title, lead) => h('div', { class: 'page-head' }, h('div', { class: 'eyebrow' }, eyebrow), h('h1', null, title), lead ? h('p', { class: 'lead' }, lead) : null);
+const pageHead = (eyebrow, title, lead, cls) => h('div', { class: 'page-head' + (cls ? ' ' + cls : '') }, h('div', { class: 'eyebrow' }, eyebrow), h('h1', null, title), lead ? h('p', { class: 'lead' }, lead) : null);
 
 /* 내일 예보 (홈·예측센터 공용) */
 const TOM = (() => {
@@ -325,40 +325,3 @@ const TOM = (() => {
   return { rows, best };
 })();
 
-/* ================= 00 종합안내 ================= */
-APP.pages.home = sec => {
-  const cur = Object.fromEntries(STN.map(s => [s.code, MON.st[s.code].ou[nowIdx]]));
-  const lvCount = { good: 0, warn: 0, serious: 0, critical: 0 };
-  Object.values(cur).forEach(v => lvCount[lvl(v).k]++);
-  const b = TOM.best, bst = STN[b.j];
-  const steps = [
-    ['01', '접수 · 문진', 'intake', '주민·고객이 말로 설명한 냄새를 분석해 의심 물질, 필요한 검사, 바람 기준 의심 사업장을 안내합니다.', h('span', null, '냄새 유형 ', h('b', null, '10'), '종 · 사업장 ', h('b', null, SITES.length), '곳 연계')],
-    ['02', '진단', 'diagnosis', '22종 지정악취물질 분석값의 구성비(냄새 지문)로 배출원 업종을 판독하고 기여율·기준 초과를 판정합니다.', h('span', null, '미지 시료 판독 정확도 ', h('b', null, pct(D.clf.te_acc, 0)))],
-    ['03', '해결', 'treatment', '원인 물질의 성질에 맞춰 세정·마이크로버블·바이오필터·RTO 등 방지시설 조합과 개략 규모를 처방합니다.', h('span', null, '처방 규칙 ', h('b', null, '7'), '개 물질군')],
-    ['04', '예측', 'forecast', '과거 1년의 유사 기상 사례로 측정소별 악취를 시간 단위로 예보합니다.', h('span', null, '24시간 내 최고 ', h('b', null, f1(b.v)), `배 · ${bst.code} ${new Date(TOM.rows[b.i].ms).getUTCHours()}시`)],
-    ['05', '관리', 'monitoring', '측정소 6곳의 연속 측정값으로 경보를 띄우고, 풍향과 센서 지문으로 원인 사업장을 역추적합니다.', h('span', null, '현재 ', h('b', null, lvCount.serious + lvCount.critical), '곳 주의 이상 · ', h('b', null, lvCount.warn), '곳 관심')],
-  ];
-  sec.append(
-    h('div', { class: 'hero hero-card' },
-      h('div', { class: 'page-head' },
-        h('div', { class: 'eyebrow' }, '바로고시스템 · 종합안내'),
-        h('h1', null, '악취를 환자처럼 접수하고, 진단하고, 처방하고, 예보하고, 관리합니다'),
-        h('p', { class: 'lead' }, '‘바로고시스템’은 악취종합병원의 전 과정을 한곳에서 쓰는 웹 플랫폼입니다. 고객은 냄새를 설명해 원인과 해결책을 안내받고, 직원은 측정 현황과 분석 기록을 바로 찾습니다. 회사 유튜브 영상 232개와 홈페이지 자료도 진료 흐름에 맞춰 연결했습니다.')),
-      h('div', { class: 'axes', 'aria-label': '통합솔루션 4축' }, ['진단', '해결', '예측', '관리'].map(t => h('span', null, t)))),
-    h('div', { class: 'journey' }, steps.map(([no, nm, id, what, live]) => h('a', { class: 'jstep', href: '#' + id }, h('span', { class: 'no' }, no), h('span', { class: 'nm' }, nm), h('span', { class: 'what' }, what), h('span', { class: 'live' }, live)))),
-    h('a', { class: 'emr-bar', href: '#records' }, h('b', null, '전자차트'), h('span', { style: 'flex:1 1 300px' }, `분석 기록 ${REC.length}건(사업장 8곳, ${REC[0].ts.slice(0, 7)} ~ ${REC[REC.length - 1].ts.slice(0, 7)})을 “작년 여름 하수처리장 황화수소 가장 높았던 날”처럼 말로 검색하고, 엑셀 파일을 올려 함께 찾을 수 있습니다.`), h('span', { class: 'faint' }, '→')),
-    h('div', { class: 'grid2', style: 'grid-template-columns:minmax(0,7fr) minmax(0,5fr)' },
-      h('div', { class: 'card' },
-        h('div', { class: 'card-h' }, h('h3', null, '지금 병동 현황'), h('span', { class: 'small faint mono' }, tf(NOW, 'full') + ' 기준')),
-        drawMap({ vals: cur, wind: { wd: MON.wd[nowIdx], ws: MON.ws[nowIdx] }, onSt: c => { APP.monSel = c; nav('monitoring'); } }),
-        h('p', { class: 'small muted', style: 'margin-top:8px' }, '원은 측정소(색 = 악취 단계), 사각형은 사업장입니다. 측정소를 누르면 관리센터로 이동합니다.')),
-      h('div', { class: 'card stack' },
-        h('h3', null, '측정소별 현재 값'),
-        h('div', { class: 'tbl-wrap' }, h('table', null,
-          h('thead', null, h('tr', null, h('th', null, '측정소'), h('th', { class: 'r' }, '복합악취(배)'), h('th', null, '단계'))),
-          h('tbody', null, STN.map(st => h('tr', { class: 'click', onclick: () => { APP.monSel = st.code; nav('monitoring'); } },
-            h('td', null, h('b', null, st.code), ' ', st.name), h('td', { class: 'r mono' }, f1(cur[st.code])), h('td', null, lvTag(cur[st.code]))))))),
-        h('p', { class: 'small muted' }, '단계 구분: 정상 10배 미만 · 관심 10~15배 · 주의 15~30배 · 경보 30배 이상 (부지경계선 기타지역 기준 15배를 참고한 시연용 구분)'),
-        h('div', { class: 'note' }, `AI 기능 요약 — 냄새 지문 판독: 최근 3개월 미지 시료 ${D.clf.n_te}건 중 ${pct(D.clf.te_acc, 0)} 정답 · 악취 예보: 시간대 평균 대비 평균오차 ${pct(1 - sum(FC.mae) / sum(FC.mae_base), 0)} 감소 · 민원 역추적: 1순위 후보 적중 ${pct(D.bt.top1, 0)}(무작위 13%) · `, h('a', { href: '#data' }, '검증 자세히 보기'))))
-  );
-};
